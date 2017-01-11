@@ -1,0 +1,11 @@
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\components\app.component.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\components\home\home.component.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\app.routing.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\app.module.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\boot.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\components\app.component.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\components\home\home.component.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\components\charts\chart.component.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\app.routing.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\app.module.js
+D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Scripts\app\boot.js

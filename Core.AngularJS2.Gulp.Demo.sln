@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{832DAEE0-DDDC-4BD0-BDCB-2FF6344BE141}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6F79078-5C1B-4903-A6EB-441F1CCAD992}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Core.AngularJS2.Gulp.Demo", "src\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo.xproj", "{2DEFA68C-2445-4F34-B097-C7787C6CC961}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DEFA68C-2445-4F34-B097-C7787C6CC961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEFA68C-2445-4F34-B097-C7787C6CC961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEFA68C-2445-4F34-B097-C7787C6CC961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEFA68C-2445-4F34-B097-C7787C6CC961}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2DEFA68C-2445-4F34-B097-C7787C6CC961} = {832DAEE0-DDDC-4BD0-BDCB-2FF6344BE141}
+	EndGlobalSection
+EndGlobal

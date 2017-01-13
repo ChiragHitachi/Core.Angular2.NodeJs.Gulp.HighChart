@@ -11,11 +11,9 @@ import {AppComponent} from "./components/app.component";
 import {HomeComponent} from "./components/home/home.component";
 import { ChartComponent } from "./components/charts/chart.component";
 
-//import {PlaceListComponent} from "./components/explore/place-list.component";
-//import {PlaceDetailComponent} from "./components/explore/place-detail.component";
-
 import {AppRouting} from "./app.routing";
-//import {AppService} from "./services/app.service";
+import {WebRequest} from "./services/webRequest";
+import { DashboardService } from "./services/dashboardService";
 
 @NgModule({
     // directives, components, and pipes
@@ -23,8 +21,6 @@ import {AppRouting} from "./app.routing";
         AppComponent,
         HomeComponent,
         ChartComponent
-        //LoungeListComponent,
-        //LoungeDetailComponent,
     ],
     // modules
     imports: [
@@ -35,9 +31,10 @@ import {AppRouting} from "./app.routing";
         AppRouting,
         ChartModule
     ],
-    //providers: [
-    //    AppService
-    //],
+    providers: [
+        WebRequest, 
+        DashboardService
+    ],
     bootstrap: [
         AppComponent
     ]

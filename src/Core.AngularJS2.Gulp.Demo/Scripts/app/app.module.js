@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/platform-browser", "@angular/http", "@angular/router", "@angular/forms", "rxjs/Rx", "angular2-highcharts", "./components/app.component", "./components/home/home.component", "./components/charts/chart.component", "./app.routing"], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/platform-browser", "@angular/http", "@angular/router", "@angular/forms", "rxjs/Rx", "angular2-highcharts", "./components/app.component", "./components/home/home.component", "./components/charts/chart.component", "./app.routing", "./services/webRequest", "./services/dashboardService"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/http", 
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, platform_browser_1, http_1, router_1, forms_1, angular2_highcharts_1, app_component_1, home_component_1, chart_component_1, app_routing_1, AppModule;
+    var core_1, platform_browser_1, http_1, router_1, forms_1, angular2_highcharts_1, app_component_1, home_component_1, chart_component_1, app_routing_1, webRequest_1, dashboardService_1, AppModule;
     return {
         setters: [
             function (core_1_1) {
@@ -44,6 +44,12 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/http", 
             },
             function (app_routing_1_1) {
                 app_routing_1 = app_routing_1_1;
+            },
+            function (webRequest_1_1) {
+                webRequest_1 = webRequest_1_1;
+            },
+            function (dashboardService_1_1) {
+                dashboardService_1 = dashboardService_1_1;
             }
         ],
         execute: function () {
@@ -69,9 +75,10 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/http", 
                         app_routing_1.AppRouting,
                         angular2_highcharts_1.ChartModule
                     ],
-                    //providers: [
-                    //    AppService
-                    //],
+                    providers: [
+                        webRequest_1.WebRequest,
+                        dashboardService_1.DashboardService
+                    ],
                     bootstrap: [
                         app_component_1.AppComponent
                     ]

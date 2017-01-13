@@ -5,8 +5,8 @@
     gp_sourcemaps = require('gulp-sourcemaps'),
     gp_typescript = require('gulp-typescript'),
     gp_uglify = require('gulp-uglify');
+
 var del = require('del');
-//const $ = gulpLoadPlugins();
 var gulpLoadPlugins = require('gulp-load-plugins');
 var plugins = gulpLoadPlugins();
 //var minifyCSS = require('gulp-minify-css');
@@ -49,7 +49,7 @@ gulp.task('app', ['app_clean'], function () {
     return gulp.src(srcPaths.app)
         .pipe(gp_sourcemaps.init())
         .pipe(gp_typescript(require('./tsconfig.json').compilerOptions))
-       // .pipe(gp_uglify({ mangle: false }))
+        .pipe(gp_uglify({ mangle: false }))
 		.pipe(gp_sourcemaps.write('/'))
         .pipe(gulp.dest(destPaths.app));
 });
@@ -91,9 +91,11 @@ gulp.task('css', function () {
 });
 gulp.task('html', function () {
     return gulp.src('Scripts/app/**/*.html')
-       // .pipe(htmlmin({ collapseWhitespace: true }))
+      .pipe(htmlmin({ collapseWhitespace: true }))
       .pipe(gulp.dest(destPaths.html));
 });
+// Define the default task so it will launch all other tasks
+gulp.task('default', ['app', 'js', 'watch', 'css', 'html']);
 
 //gulp.task('html', function ()  {
 //    return gulp.src('Scripts/app/*.html')
@@ -110,8 +112,8 @@ gulp.task('html', function () {
 //    .pipe(concat('style.min.css'))
 //    .pipe(gulp.dest(destPaths.css))
 //});
-// Define the default task so it will launch all other tasks
-gulp.task('default', ['app', 'js', 'watch', 'css', 'html']);
+
+
 
 //gulp.task('build', ['app', 'js', 'watch', 'css', 'html'], function () {
 //    return gulp.src('wwwroot/**/*').pipe(plugins.size({ title: 'build', gzip: true }));

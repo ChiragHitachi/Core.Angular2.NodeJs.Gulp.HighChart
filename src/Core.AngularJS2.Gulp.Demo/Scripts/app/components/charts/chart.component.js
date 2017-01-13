@@ -19,16 +19,8 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         ],
         execute: function () {
             ChartComponent = (function () {
-                //npm install highcharts --save
-                //npm install @types/node --save-dev
-                //npm install --save-dev gulp-concat - css
-                //npm -g install htmlmin
-                //npm install --save del
-                //npm install --save-dev gulp-load-plugins
-                //npm install --save-dev gulp-gzip
-                //npm install -g browser-sync
-                //npm install gulp-compress
-                function ChartComponent() {
+                function ChartComponent(dashboardService) {
+                    this.dashboardService = dashboardService;
                     this.title = "Charts";
                     var vm = this;
                     this.options = {
@@ -42,6 +34,11 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                                 data: [-2, -3, -5, -8, -13],
                                 allowPointSelect: true
                             }]
+                    };
+                    vm.getWeatherForcast = function () {
+                        dashboardService.getWeatherStatus().subscribe(function (result) {
+                            vm.forecasts = result.data;
+                        });
                     };
                     //var Highcharts = require('highcharts');
                     // Load module after Highcharts is loaded
@@ -78,7 +75,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     selector: "charts",
                     templateUrl: "/view/components/charts/chart.component.html"
                 }),
-                __metadata("design:paramtypes", [])
+                __metadata("design:paramtypes", [Object])
             ], ChartComponent);
             exports_1("ChartComponent", ChartComponent);
         }

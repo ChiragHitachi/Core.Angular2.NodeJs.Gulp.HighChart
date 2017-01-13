@@ -7,8 +7,8 @@
 -debug:full
 -nostdlib
 -nologo
-"D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
--out:"D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\bin\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demo.dll"
+"C:\Users\CGupta\Source\Repos\Core.Angular2.NodeJs.Gulp.HighChart\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
+-out:"C:\Users\CGupta\Source\Repos\Core.Angular2.NodeJs.Gulp.HighChart\src\Core.AngularJS2.Gulp.Demo\bin\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demo.dll"
 -r:"C:\Users\CGupta\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\dotnet5.4\Microsoft.ApplicationInsights.dll"
 -r:"C:\Users\CGupta\.nuget\packages\Microsoft.ApplicationInsights.AspNetCore\1.0.0\lib\netstandard1.6\Microsoft.ApplicationInsights.AspNetCore.dll"
 -r:"C:\Users\CGupta\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.0.1\lib\netstandard1.3\Microsoft.AspNetCore.Antiforgery.dll"
@@ -172,6 +172,6 @@
 -r:"C:\Users\CGupta\.nuget\packages\System.Threading.Timer\4.0.1\ref\netstandard1.2\System.Threading.Timer.dll"
 -r:"C:\Users\CGupta\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\CGupta\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll"
--resource:"D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demodotnet-compile.deps.json",Core.AngularJS2.Gulp.Demo.deps.json
-"D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Program.cs"
-"D:\Chirag\SP3\R&D\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Startup.cs"
+-resource:"C:\Users\CGupta\Source\Repos\Core.Angular2.NodeJs.Gulp.HighChart\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demodotnet-compile.deps.json",Core.AngularJS2.Gulp.Demo.deps.json
+"C:\Users\CGupta\Source\Repos\Core.Angular2.NodeJs.Gulp.HighChart\src\Core.AngularJS2.Gulp.Demo\Program.cs"
+"C:\Users\CGupta\Source\Repos\Core.Angular2.NodeJs.Gulp.HighChart\src\Core.AngularJS2.Gulp.Demo\Startup.cs"

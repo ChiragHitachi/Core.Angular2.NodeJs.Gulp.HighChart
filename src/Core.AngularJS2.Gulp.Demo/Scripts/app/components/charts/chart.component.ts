@@ -2,6 +2,10 @@
 import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts'; 
+import { IDashboardService } from "../../interfaces/interfaces";
+import { DashboardService } from "../../services/dashboardService";
+import { IResponse, IContainerScanned, IWeatherForecast } from "../../models/viewModels";
+
 
 
 @Component({
@@ -12,17 +16,13 @@ import { ChartModule } from 'angular2-highcharts';
 export class ChartComponent {
     title :string = "Charts";
     options: any;
-    //npm install highcharts --save
-    //npm install @types/node --save-dev
-    //npm install --save-dev gulp-concat - css
-    //npm -g install htmlmin
-    //npm install --save del
-    //npm install --save-dev gulp-load-plugins
-    //npm install --save-dev gulp-gzip
-    //npm install -g browser-sync
-    //npm install gulp-compress
-    constructor() {
+    forecasts: IWeatherForecast;
+
+    getWeatherForcast: () => void;
+
+    constructor(private dashboardService : IDashboardService) {
         var vm = this;
+
         this.options = {
             title: { text: 'angular2-highcharts example' },
             series: [{
@@ -35,6 +35,13 @@ export class ChartComponent {
                 allowPointSelect: true
             }]
         };
+
+        vm.getWeatherForcast = () => {
+            dashboardService.getWeatherStatus<IWeatherForecast>().subscribe(result => {
+                vm.forecasts = result.data;
+            });
+        }
+
         //var Highcharts = require('highcharts');
 
         // Load module after Highcharts is loaded

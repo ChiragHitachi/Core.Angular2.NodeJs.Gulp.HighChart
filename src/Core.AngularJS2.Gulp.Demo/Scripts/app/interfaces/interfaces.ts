@@ -11,6 +11,5 @@ export interface IWebRequest {
 
 export interface IDashboardService {
     getContainerScanStatus: <ContainerScanned>() => Observable<IResponse<ContainerScanned>>;
-    getWeatherStatus: <IWeatherForecast>() => Observable<IResponse<IWeatherForecast>>;
 
 }

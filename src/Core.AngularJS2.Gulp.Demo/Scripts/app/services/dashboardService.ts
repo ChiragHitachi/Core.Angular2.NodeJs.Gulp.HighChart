@@ -16,11 +16,9 @@ export class DashboardService implements IDashboardService {
         var vm = this;
 
         vm.getContainerScanStatus = <IContainerScanned>() => {
-            return webRequest.get<IContainerScanned>("/api/GetContainerScannedStatus");
+            return webRequest.get<IContainerScanned>("http://localhost:53919/api/ContainerStatus");
         }
 
-        vm.getWeatherStatus = <IWeatherForecast>() => {
-            return webRequest.get<IWeatherForecast>("/api/SampleData/WeatherForecasts");
-        }
+        
     }
 }

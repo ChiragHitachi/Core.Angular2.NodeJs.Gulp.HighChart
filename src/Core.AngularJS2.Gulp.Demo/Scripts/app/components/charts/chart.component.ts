@@ -1,13 +1,11 @@
 ﻿import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NgModule, Component,  Inject, forwardRef, Injector, OpaqueToken } from "@angular/core";
+import { NgModule, Component, Inject, forwardRef, Injector, OpaqueToken } from "@angular/core";
 
 import { BrowserModule } from '@angular/platform-browser';
-import { ChartModule } from 'angular2-highcharts'; 
+import { ChartModule } from 'angular2-highcharts';
 import { IDashboardService } from "../../interfaces/interfaces";
 import { DashboardService } from "../../services/dashboardService";
-import { IResponse, IContainerScanned, IWeatherForecast } from "../../models/viewModels";
-
-
+import { IResponse, IContainerScanned, IContainerStatus } from "../../models/viewModels";
 
 @Component({
     selector: "charts",
@@ -15,15 +13,19 @@ import { IResponse, IContainerScanned, IWeatherForecast } from "../../models/vie
 })
 
 export class ChartComponent {
-    title :string = "Charts";
+    title: string = "Charts";
     options: any;
-    forecasts: IWeatherForecast;
+    pieOptions: any;
+    chart3Options: any;
+    barOptions: any;
 
-    getWeatherForcast: () => void;
+    containerStatus: IContainerStatus;
 
-    constructor( @Inject('IDashboardService')private dashboardService : IDashboardService) {
-        var vm = this;
-
+    //getContainerStatus: () => void;
+    ngOnInit() {
+        this.getContainerStatus();
+    }
+    constructor( @Inject('IDashboardService') private dashboardService: IDashboardService) {
         this.options = {
             title: { text: 'angular2-highcharts example' },
             series: [{
@@ -37,40 +39,98 @@ export class ChartComponent {
             }]
         };
 
-        vm.getWeatherForcast = () => {
-            dashboardService.getWeatherStatus<IWeatherForecast>().subscribe(result => {
-                vm.forecasts = result.data;
-            });
-        }
+        this.chart3Options = {
+            title: { text: 'simple chart' },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Microsoft Internet Explorer',
+                    y: 56.33
+                }, {
+                    name: 'Chrome',
+                    y: 24.03,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Firefox',
+                    y: 10.38
+                }, {
+                    name: 'Safari',
+                    y: 4.77
+                }, {
+                    name: 'Opera',
+                    y: 0.91
+                }, {
+                    name: 'Proprietary or Undetectable',
+                    y: 0.2
+                }]
+            }]
+        };
 
-        //var Highcharts = require('highcharts');
+        this.barOptions =
+            {
+            chart: { type: 'bar' },
+                title: {
+                    text: 'Fruit Consumption'
+                },
+                xAxis: {
+                    categories: ['Apples', 'Bananas', 'Oranges']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Fruit eaten'
+                    }
+                },
+                series: [{
+                    name: 'Jane',
+                    data: [1, 0, 4]
+                }, {
+                    name: 'John',
+                    data: [5, 7, 3]
+                }]
+            };
 
-        // Load module after Highcharts is loaded
-        //require('highcharts/modules/exporting')(Highcharts);
-        // Create the chart
-        //var myChart = Highcharts.chart('container', {
-        //    chart: {
-        //        type: 'bar'
-        //    },
-        //    title: {
-        //        text: 'Fruit Consumption'
-        //    },
-        //    xAxis: {
-        //        categories: ['Apples', 'Bananas', 'Oranges']
-        //    },
-        //    yAxis: {
-        //        title: {
-        //            text: 'Fruit eaten'
-        //        }
-        //    },
-        //    series: [{
-        //        name: 'Jane',
-        //        data: [1, 0, 4]
-        //    }, {
-        //        name: 'John',
-        //        data: [5, 7, 3]
-        //    }]
-        //});
+        this.pieOptions = {
+            title: { text: 'Pie chart' },
+            chart: { type: 'pie' },
+           
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Microsoft Internet Explorer',
+                    y: 56.33
+                }, {
+                    name: 'Chrome',
+                    y: 24.03,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Firefox',
+                    y: 10.38
+                }, {
+                    name: 'Safari',
+                    y: 4.77
+                }, {
+                    name: 'Opera',
+                    y: 0.91
+                }, {
+                    name: 'Proprietary or Undetectable',
+                    y: 0.2
+                }]
+            }]
+        };
 
     }
+
+    getContainerStatus = () => {
+        this.dashboardService.getContainerScanStatus<IContainerStatus>().subscribe(result => {
+            this.containerStatus = result;
+            console.warn(this.containerStatus);
+
+        });
+
+    }
+
 }

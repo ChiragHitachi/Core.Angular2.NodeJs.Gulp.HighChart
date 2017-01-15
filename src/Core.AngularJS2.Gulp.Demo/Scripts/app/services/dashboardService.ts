@@ -9,7 +9,7 @@ import { WebRequest } from "../services/webRequest";
 
 @Injectable()
 export class DashboardService implements IDashboardService {
-    getContainerScanStatus: <IContainerScanned>() => Observable<IResponse<IContainerScanned>>;
+    getContainerScanStatus: <IContainerScanned>() => Observable<IContainerScanned>;
     getWeatherStatus: <IWeatherForecast>() => Observable<IResponse<IWeatherForecast>>;
 
     constructor( @Inject('IWebRequest')private webRequest : IWebRequest) {

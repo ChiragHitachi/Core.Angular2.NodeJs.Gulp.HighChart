@@ -4,12 +4,12 @@ import { IResponse } from "../models/viewModels";
 
 
 export interface IWebRequest {
-    get: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<IResponse<T>>;
+    get: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<T>;
     post: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<IResponse<T>>;
 
 }
 
 export interface IDashboardService {
-    getContainerScanStatus: <ContainerScanned>() => Observable<IResponse<ContainerScanned>>;
+    getContainerScanStatus: <ContainerScanned>() => Observable<ContainerScanned>;
 
 }

@@ -32,8 +32,7 @@ import { DashboardService } from "./services/dashboardService";
         ChartModule
     ],
     providers: [
-        WebRequest, 
-        DashboardService
+        { provide: 'IWebRequest', useClass: WebRequest }, { provide: 'IDashboardService', useClass: DashboardService }
     ],
     bootstrap: [
         AppComponent

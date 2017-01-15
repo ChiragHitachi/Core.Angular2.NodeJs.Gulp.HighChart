@@ -7,8 +7,9 @@
     gp_uglify = require('gulp-uglify');
 
 var del = require('del');
-var gulpLoadPlugins = require('gulp-load-plugins');
-var plugins = gulpLoadPlugins();
+var htmlmin = require('gulp-htmlmin');
+//var gulpLoadPlugins = require('gulp-load-plugins');
+//var plugins = gulpLoadPlugins();
 //var minifyCSS = require('gulp-minify-css');
 //var autoprefixer = require('gulp-autoprefixer');
 var concatCss = require('gulp-concat-css');

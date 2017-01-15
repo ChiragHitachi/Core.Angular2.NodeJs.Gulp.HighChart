@@ -1,4 +1,5 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable, Inject, forwardRef, Injector, OpaqueToken } from "@angular/core";
+
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { IResponse, IContainerScanned, IWeatherForecast } from "../models/viewModels";
@@ -11,7 +12,7 @@ export class DashboardService implements IDashboardService {
     getContainerScanStatus: <IContainerScanned>() => Observable<IResponse<IContainerScanned>>;
     getWeatherStatus: <IWeatherForecast>() => Observable<IResponse<IWeatherForecast>>;
 
-    constructor(private webRequest : IWebRequest) {
+    constructor( @Inject('IWebRequest')private webRequest : IWebRequest) {
         var vm = this;
 
         vm.getContainerScanStatus = <IContainerScanned>() => {

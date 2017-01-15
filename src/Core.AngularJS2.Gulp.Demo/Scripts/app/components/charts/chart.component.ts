@@ -1,5 +1,6 @@
 ﻿import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component,  Inject, forwardRef, Injector, OpaqueToken } from "@angular/core";
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts'; 
 import { IDashboardService } from "../../interfaces/interfaces";
@@ -20,7 +21,7 @@ export class ChartComponent {
 
     getWeatherForcast: () => void;
 
-    constructor(private dashboardService : IDashboardService) {
+    constructor( @Inject('IDashboardService')private dashboardService : IDashboardService) {
         var vm = this;
 
         this.options = {

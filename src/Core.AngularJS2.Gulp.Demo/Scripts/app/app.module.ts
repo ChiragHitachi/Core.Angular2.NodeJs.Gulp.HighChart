@@ -10,6 +10,9 @@ import { ChartModule } from 'angular2-highcharts';
 import {AppComponent} from "./components/app.component";
 import {HomeComponent} from "./components/home/home.component";
 import { ChartComponent } from "./components/charts/chart.component";
+import { IntegrationComponent } from "./components/integration/integration.component";
+import { RedisCacheComponent } from "./components/redisCache/redisCache.component";
+import { SignalRComponent } from "./components/signalR/signalR.component";
 
 import {AppRouting} from "./app.routing";
 import {WebRequest} from "./services/webRequest";
@@ -20,7 +23,10 @@ import { DashboardService } from "./services/dashboardService";
     declarations: [
         AppComponent,
         HomeComponent,
-        ChartComponent
+        ChartComponent,
+        IntegrationComponent,
+        RedisCacheComponent,
+        SignalRComponent
     ],
     // modules
     imports: [

@@ -22,16 +22,10 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         ],
         execute: function () {
             ChartComponent = (function () {
+                //getContainerStatus: () => void;
                 function ChartComponent(dashboardService) {
-                    var _this = this;
                     this.dashboardService = dashboardService;
                     this.title = "Charts";
-                    this.getContainerStatus = function () {
-                        _this.dashboardService.getContainerScanStatus().subscribe(function (result) {
-                            _this.containerStatus = result;
-                            console.warn(_this.containerStatus);
-                        });
-                    };
                     this.options = {
                         title: { text: 'angular2-highcharts example' },
                         series: [{
@@ -124,10 +118,6 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                             }]
                     };
                 }
-                //getContainerStatus: () => void;
-                ChartComponent.prototype.ngOnInit = function () {
-                    this.getContainerStatus();
-                };
                 return ChartComponent;
             }());
             ChartComponent = __decorate([

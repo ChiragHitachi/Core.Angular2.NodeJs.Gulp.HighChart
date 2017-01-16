@@ -10,7 +10,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, AppComponent;
+    var core_1, HomeComponent;
     return {
         setters: [
             function (core_1_1) {
@@ -18,22 +18,31 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            AppComponent = (function () {
-                function AppComponent() {
-                    this.title = "Angular 2 Demo Application";
+            HomeComponent = (function () {
+                //npm install highcharts --save
+                //npm install @types/node --save-dev
+                //npm install --save-dev gulp-concat - css
+                //npm -g install htmlmin
+                //npm install --save del
+                //npm install --save-dev gulp-load-plugins
+                //npm install --save-dev gulp-gzip
+                //npm install -g browser-sync
+                //npm install gulp-compress
+                //npm install angular2-highcharts --save
+                function HomeComponent() {
+                    var vm = this;
+                    vm.title = "Welcome Chirag Gupta";
                 }
-                return AppComponent;
+                return HomeComponent;
             }());
-            AppComponent = __decorate([
+            HomeComponent = __decorate([
                 core_1.Component({
-                    selector: "angularjs2demo",
-                    template: "\n      <h1>{{title}}</h1>\n\n<div class=\"menu\">\n    <div class=\"row\">\n        <div class=\"col-lg-2\">\n            <a class=\"home\" [routerLink]=\"['/home']\">Home</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/charts']\">Charts</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/integration']\">API Integration</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/signalR']\">Signal R</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/redisCache']\">Redis Cache</a>\n        </div>\n    </div>\n</div>\n<router-outlet></router-outlet>\n    "
+                    selector: "home",
+                    templateUrl: "/view/components/home/home.component.html"
                 }),
                 __metadata("design:paramtypes", [])
-            ], AppComponent);
-            exports_1("AppComponent", AppComponent);
+            ], HomeComponent);
+            exports_1("HomeComponent", HomeComponent);
         }
     };
 });
-
-//# sourceMappingURL=app.component.js.map

@@ -10,7 +10,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, AppComponent;
+    var core_1, RedisCacheComponent;
     return {
         setters: [
             function (core_1_1) {
@@ -18,22 +18,23 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            AppComponent = (function () {
-                function AppComponent() {
-                    this.title = "Angular 2 Demo Application";
+            RedisCacheComponent = (function () {
+                function RedisCacheComponent() {
+                    var vm = this;
+                    vm.title = "To Do";
                 }
-                return AppComponent;
+                return RedisCacheComponent;
             }());
-            AppComponent = __decorate([
+            RedisCacheComponent = __decorate([
                 core_1.Component({
-                    selector: "angularjs2demo",
-                    template: "\n      <h1>{{title}}</h1>\n\n<div class=\"menu\">\n    <div class=\"row\">\n        <div class=\"col-lg-2\">\n            <a class=\"home\" [routerLink]=\"['/home']\">Home</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/charts']\">Charts</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/integration']\">API Integration</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/signalR']\">Signal R</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/redisCache']\">Redis Cache</a>\n        </div>\n    </div>\n</div>\n<router-outlet></router-outlet>\n    "
+                    selector: "redisCache",
+                    templateUrl: "/view/components/redisCache/redisCache.component.html"
                 }),
                 __metadata("design:paramtypes", [])
-            ], AppComponent);
-            exports_1("AppComponent", AppComponent);
+            ], RedisCacheComponent);
+            exports_1("RedisCacheComponent", RedisCacheComponent);
         }
     };
 });
 
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=redisCache.component.js.map

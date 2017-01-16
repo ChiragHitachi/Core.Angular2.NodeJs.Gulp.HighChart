@@ -22,9 +22,7 @@ export class ChartComponent {
     containerStatus: IContainerStatus;
 
     //getContainerStatus: () => void;
-    ngOnInit() {
-        this.getContainerStatus();
-    }
+    
     constructor( @Inject('IDashboardService') private dashboardService: IDashboardService) {
         this.options = {
             title: { text: 'angular2-highcharts example' },
@@ -123,14 +121,5 @@ export class ChartComponent {
         };
 
     }
-
-    getContainerStatus = () => {
-        this.dashboardService.getContainerScanStatus<IContainerStatus>().subscribe(result => {
-            this.containerStatus = result;
-            console.warn(this.containerStatus);
-
-        });
-
-    }
-
+     
 }

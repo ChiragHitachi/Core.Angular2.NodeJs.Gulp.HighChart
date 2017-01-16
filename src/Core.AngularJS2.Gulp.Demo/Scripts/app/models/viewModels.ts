@@ -8,14 +8,14 @@ export interface IResponse<T> {
 }
 
 export interface IContainerScanned {
-    Received : number,
-    Scanned : number
+    received : number,
+    scanned : number
 }
 
 export interface IContainerStatus {
-    IgnoredContainers: number,
-    GoodContainers: number,
-    BadContainers: number,
+    ignoredContainers: number,
+    goodContainers: number,
+    badContainers: number,
 }
 
 

@@ -92,7 +92,7 @@ gulp.task('css', function () {
 });
 gulp.task('html', function () {
     return gulp.src('Scripts/app/**/*.html')
-      .pipe(htmlmin({ collapseWhitespace: true }))
+      .pipe(htmlmin({ collapseWhitespace: true, caseSensitive: true }))
       .pipe(gulp.dest(destPaths.html));
 });
 // Define the default task so it will launch all other tasks

@@ -27,7 +27,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             AppComponent = __decorate([
                 core_1.Component({
                     selector: "angularjs2demo",
-                    template: "\n      <h1>{{title}}</h1>\n\n<div class=\"menu\">\n    <div class=\"row\">\n        <div class=\"col-lg-2\">\n            <a class=\"home\" [routerLink]=\"['/home']\">Home</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/charts']\">Charts</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/integration']\">API Integration</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/signalR']\">Signal R</a>\n        </div>\n        <div class=\"col-lg-2\">\n            <a class=\"chart\" [routerLink]=\"['/redisCache']\">Redis Cache</a>\n        </div>\n    </div>\n</div>\n<router-outlet></router-outlet>\n    "
+                    templateUrl: '/view/components/app.component.html',
                 }),
                 __metadata("design:paramtypes", [])
             ], AppComponent);

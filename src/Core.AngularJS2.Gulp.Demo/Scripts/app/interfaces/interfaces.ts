@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { IResponse } from "../models/viewModels";
+import { IResponse, IContainerDetail } from "../models/viewModels";
 
 
 export interface IWebRequest {
@@ -12,4 +12,10 @@ export interface IWebRequest {
 export interface IDashboardService {
     getContainerScanStatus: <ContainerScanned>() => Observable<ContainerScanned>;
 
+}
+
+export interface IImageService {
+    getImagePath: () => Observable<IContainerDetail>;
+    getImageAsBase64: () => Observable<IContainerDetail>;
+    getImageAsByteArrray: () => Observable<IContainerDetail>;
 }

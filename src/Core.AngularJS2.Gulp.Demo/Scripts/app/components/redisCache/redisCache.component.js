@@ -10,7 +10,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, HomeComponent;
+    var core_1, RedisCacheComponent;
     return {
         setters: [
             function (core_1_1) {
@@ -18,31 +18,21 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            HomeComponent = (function () {
-                //npm install highcharts --save
-                //npm install @types/node --save-dev
-                //npm install --save-dev gulp-concat - css
-                //npm -g install htmlmin
-                //npm install --save del
-                //npm install --save-dev gulp-load-plugins
-                //npm install --save-dev gulp-gzip
-                //npm install -g browser-sync
-                //npm install gulp-compress
-                //npm install angular2-highcharts --save
-                function HomeComponent() {
+            RedisCacheComponent = (function () {
+                function RedisCacheComponent() {
                     var vm = this;
-                    vm.title = "Welcome Chirag Gupta";
+                    vm.title = "To Do";
                 }
-                return HomeComponent;
+                return RedisCacheComponent;
             }());
-            HomeComponent = __decorate([
+            RedisCacheComponent = __decorate([
                 core_1.Component({
-                    selector: "home",
-                    templateUrl: "/view/components/home/home.component.html"
+                    selector: "redisCache",
+                    templateUrl: "/view/components/redisCache/redisCache.component.html"
                 }),
                 __metadata("design:paramtypes", [])
-            ], HomeComponent);
-            exports_1("HomeComponent", HomeComponent);
+            ], RedisCacheComponent);
+            exports_1("RedisCacheComponent", RedisCacheComponent);
         }
     };
 });

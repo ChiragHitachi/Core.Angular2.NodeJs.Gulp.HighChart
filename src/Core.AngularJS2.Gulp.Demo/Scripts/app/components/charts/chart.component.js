@@ -9,6 +9,9 @@ System.register(["@angular/core"], function (exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
+    var __param = (this && this.__param) || function (paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    };
     var __moduleName = context_1 && context_1.id;
     var core_1, ChartComponent;
     return {
@@ -19,10 +22,10 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         ],
         execute: function () {
             ChartComponent = (function () {
+                //getContainerStatus: () => void;
                 function ChartComponent(dashboardService) {
                     this.dashboardService = dashboardService;
                     this.title = "Charts";
-                    var vm = this;
                     this.options = {
                         title: { text: 'angular2-highcharts example' },
                         series: [{
@@ -35,38 +38,85 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                                 allowPointSelect: true
                             }]
                     };
-                    vm.getWeatherForcast = function () {
-                        dashboardService.getWeatherStatus().subscribe(function (result) {
-                            vm.forecasts = result.data;
-                        });
+                    this.chart3Options = {
+                        title: { text: 'simple chart' },
+                        series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [{
+                                        name: 'Microsoft Internet Explorer',
+                                        y: 56.33
+                                    }, {
+                                        name: 'Chrome',
+                                        y: 24.03,
+                                        sliced: true,
+                                        selected: true
+                                    }, {
+                                        name: 'Firefox',
+                                        y: 10.38
+                                    }, {
+                                        name: 'Safari',
+                                        y: 4.77
+                                    }, {
+                                        name: 'Opera',
+                                        y: 0.91
+                                    }, {
+                                        name: 'Proprietary or Undetectable',
+                                        y: 0.2
+                                    }]
+                            }]
                     };
-                    //var Highcharts = require('highcharts');
-                    // Load module after Highcharts is loaded
-                    //require('highcharts/modules/exporting')(Highcharts);
-                    // Create the chart
-                    //var myChart = Highcharts.chart('container', {
-                    //    chart: {
-                    //        type: 'bar'
-                    //    },
-                    //    title: {
-                    //        text: 'Fruit Consumption'
-                    //    },
-                    //    xAxis: {
-                    //        categories: ['Apples', 'Bananas', 'Oranges']
-                    //    },
-                    //    yAxis: {
-                    //        title: {
-                    //            text: 'Fruit eaten'
-                    //        }
-                    //    },
-                    //    series: [{
-                    //        name: 'Jane',
-                    //        data: [1, 0, 4]
-                    //    }, {
-                    //        name: 'John',
-                    //        data: [5, 7, 3]
-                    //    }]
-                    //});
+                    this.barOptions =
+                        {
+                            chart: { type: 'bar' },
+                            title: {
+                                text: 'Fruit Consumption'
+                            },
+                            xAxis: {
+                                categories: ['Apples', 'Bananas', 'Oranges']
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Fruit eaten'
+                                }
+                            },
+                            series: [{
+                                    name: 'Jane',
+                                    data: [1, 0, 4]
+                                }, {
+                                    name: 'John',
+                                    data: [5, 7, 3]
+                                }]
+                        };
+                    this.pieOptions = {
+                        title: { text: 'Pie chart' },
+                        chart: { type: 'pie' },
+                        series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [{
+                                        name: 'Microsoft Internet Explorer',
+                                        y: 56.33
+                                    }, {
+                                        name: 'Chrome',
+                                        y: 24.03,
+                                        sliced: true,
+                                        selected: true
+                                    }, {
+                                        name: 'Firefox',
+                                        y: 10.38
+                                    }, {
+                                        name: 'Safari',
+                                        y: 4.77
+                                    }, {
+                                        name: 'Opera',
+                                        y: 0.91
+                                    }, {
+                                        name: 'Proprietary or Undetectable',
+                                        y: 0.2
+                                    }]
+                            }]
+                    };
                 }
                 return ChartComponent;
             }());
@@ -75,6 +125,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     selector: "charts",
                     templateUrl: "/view/components/charts/chart.component.html"
                 }),
+                __param(0, core_1.Inject('IDashboardService')),
                 __metadata("design:paramtypes", [Object])
             ], ChartComponent);
             exports_1("ChartComponent", ChartComponent);

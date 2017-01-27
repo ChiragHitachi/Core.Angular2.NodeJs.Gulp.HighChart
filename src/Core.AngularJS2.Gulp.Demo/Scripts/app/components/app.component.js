@@ -20,14 +20,14 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         execute: function () {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.title = "Angular 2 Application";
+                    this.title = "Angular 2 Demo Application";
                 }
                 return AppComponent;
             }());
             AppComponent = __decorate([
                 core_1.Component({
                     selector: "angularjs2demo",
-                    template: "\n        <h1>{{title}}</h1>\n         \n            <div class=\"menu\"> \n                <a class=\"home\" [routerLink]=\"['/home']\">Home</a> \n                 <a class=\"chart\" [routerLink]=\"['/charts']\">Charts</a> \n            </div>\n           <router-outlet></router-outlet>\n    "
+                    templateUrl: '/view/components/app.component.html',
                 }),
                 __metadata("design:paramtypes", [])
             ], AppComponent);

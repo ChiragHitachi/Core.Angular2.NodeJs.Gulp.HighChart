@@ -3,8 +3,9 @@ import { NgModule, Component, Inject, forwardRef, Injector, OpaqueToken } from "
 
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts';
-import { IDashboardService } from "../../interfaces/interfaces";
+import { IDashboardService, IImageService } from "../../interfaces/interfaces";
 import { DashboardService } from "../../services/dashboardService";
+import { ImageService } from "../../services/imageService";
 import { IResponse, IContainerScanned, IContainerStatus } from "../../models/viewModels";
 
 @Component({
@@ -15,15 +16,30 @@ import { IResponse, IContainerScanned, IContainerStatus } from "../../models/vie
 export class IntegrationComponent {
     title: string = "Integration Charts";
     pieOptions: any;
-
+    imagePath: string;
+    imageBase64: string;
     containerStatus: IContainerStatus;
 
     ngOnInit() {
         this.getContainerStatus();
+        this.getImageBase64();
+        this.getImagePath();
     }
-    constructor( @Inject('IDashboardService') private dashboardService: IDashboardService) {
+    constructor( @Inject('IDashboardService') private dashboardService: IDashboardService, @Inject('IImageService') private imageService: IImageService) {
 
+    }
 
+    getImagePath = () => {
+        this.imageService.getImagePath().subscribe(result => {
+            this.imagePath = result.containerImage;
+            console.info(this.imagePath);
+        });
+    }
+    getImageBase64 = () => {
+        this.imageService.getImageAsBase64().subscribe(result => {
+            this.imageBase64 = result.containerImageBase64;
+            console.info(this.imageBase64);
+        });
     }
 
     getContainerStatus = () => {

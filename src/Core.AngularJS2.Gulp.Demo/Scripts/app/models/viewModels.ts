@@ -18,6 +18,12 @@ export interface IContainerStatus {
     badContainers: number,
 }
 
+export interface IContainerDetail {
+    containerId: number,
+    containerImage: string,
+    containerImageBase64 : string,
+    containerImageAsBytes: string,
+}
 
 export interface IWeatherForecast {
     dateFormatted: string;

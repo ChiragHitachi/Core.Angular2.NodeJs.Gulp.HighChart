@@ -9,6 +9,9 @@ System.register(["@angular/core"], function (exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
+    var __param = (this && this.__param) || function (paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    };
     var __moduleName = context_1 && context_1.id;
     var core_1, DashboardService;
     return {
@@ -23,16 +26,14 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     this.webRequest = webRequest;
                     var vm = this;
                     vm.getContainerScanStatus = function () {
-                        return webRequest.get("/api/GetContainerScannedStatus");
-                    };
-                    vm.getWeatherStatus = function () {
-                        return webRequest.get("/api/SampleData/WeatherForecasts");
+                        return webRequest.get("http://localhost:53919/api/ContainerStatus");
                     };
                 }
                 return DashboardService;
             }());
             DashboardService = __decorate([
                 core_1.Injectable(),
+                __param(0, core_1.Inject('IWebRequest')),
                 __metadata("design:paramtypes", [Object])
             ], DashboardService);
             exports_1("DashboardService", DashboardService);

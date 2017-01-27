@@ -22,10 +22,23 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         ],
         execute: function () {
             IntegrationComponent = (function () {
-                function IntegrationComponent(dashboardService) {
+                function IntegrationComponent(dashboardService, imageService) {
                     var _this = this;
                     this.dashboardService = dashboardService;
+                    this.imageService = imageService;
                     this.title = "Integration Charts";
+                    this.getImagePath = function () {
+                        _this.imageService.getImagePath().subscribe(function (result) {
+                            _this.imagePath = result.containerImage;
+                            console.info(_this.imagePath);
+                        });
+                    };
+                    this.getImageBase64 = function () {
+                        _this.imageService.getImageAsBase64().subscribe(function (result) {
+                            _this.imageBase64 = result.containerImageBase64;
+                            console.info(_this.imageBase64);
+                        });
+                    };
                     this.getContainerStatus = function () {
                         _this.dashboardService.getContainerScanStatus().subscribe(function (result) {
                             _this.containerStatus = result;
@@ -56,6 +69,8 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                 }
                 IntegrationComponent.prototype.ngOnInit = function () {
                     this.getContainerStatus();
+                    this.getImageBase64();
+                    this.getImagePath();
                 };
                 return IntegrationComponent;
             }());
@@ -64,8 +79,8 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     selector: "charts",
                     templateUrl: "/view/components/integration/integration.component.html"
                 }),
-                __param(0, core_1.Inject('IDashboardService')),
-                __metadata("design:paramtypes", [Object])
+                __param(0, core_1.Inject('IDashboardService')), __param(1, core_1.Inject('IImageService')),
+                __metadata("design:paramtypes", [Object, Object])
             ], IntegrationComponent);
             exports_1("IntegrationComponent", IntegrationComponent);
         }

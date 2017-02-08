@@ -1,3 +1,4 @@
+///<reference path="../tiff/tiff.d.ts"/>
 System.register(["@angular/platform-browser-dynamic", "./app.module"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
@@ -11,7 +12,7 @@ System.register(["@angular/platform-browser-dynamic", "./app.module"], function 
                 app_module_1 = app_module_1_1;
             }
         ],
-        execute: function () {
+        execute: function () {///<reference path="../tiff/tiff.d.ts"/>
             platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
         }
     };

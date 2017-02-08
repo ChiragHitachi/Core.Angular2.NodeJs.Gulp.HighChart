@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/platform-browser", "@angular/http", "@angular/router", "@angular/forms", "rxjs/Rx", "angular2-highcharts", "./components/app.component", "./components/home/home.component", "./components/charts/chart.component", "./components/integration/integration.component", "./components/redisCache/redisCache.component", "./components/signalR/signalR.component", "./app.routing", "./services/webRequest", "./services/dashboardService", "./services/imageService"], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/platform-browser", "@angular/http", "@angular/router", "@angular/forms", "rxjs/Rx", "angular2-highcharts", "./components/app.component", "./components/home/home.component", "./components/charts/chart.component", "./components/integration/integration.component", "./components/redisCache/redisCache.component", "./components/signalR/signalR.component", "./components/canvas/canvasViewer.component", "./app.routing", "./services/webRequest", "./services/dashboardService", "./services/imageService"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/http", 
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, platform_browser_1, http_1, router_1, forms_1, angular2_highcharts_1, app_component_1, home_component_1, chart_component_1, integration_component_1, redisCache_component_1, signalR_component_1, app_routing_1, webRequest_1, dashboardService_1, imageService_1, AppModule;
+    var core_1, platform_browser_1, http_1, router_1, forms_1, angular2_highcharts_1, app_component_1, home_component_1, chart_component_1, integration_component_1, redisCache_component_1, signalR_component_1, canvasViewer_component_1, app_routing_1, webRequest_1, dashboardService_1, imageService_1, AppModule;
     return {
         setters: [
             function (core_1_1) {
@@ -51,6 +51,9 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/http", 
             function (signalR_component_1_1) {
                 signalR_component_1 = signalR_component_1_1;
             },
+            function (canvasViewer_component_1_1) {
+                canvasViewer_component_1 = canvasViewer_component_1_1;
+            },
             function (app_routing_1_1) {
                 app_routing_1 = app_routing_1_1;
             },
@@ -79,7 +82,8 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/http", 
                         chart_component_1.ChartComponent,
                         integration_component_1.IntegrationComponent,
                         redisCache_component_1.RedisCacheComponent,
-                        signalR_component_1.SignalRComponent
+                        signalR_component_1.SignalRComponent,
+                        canvasViewer_component_1.CanvasViewerComponent
                     ],
                     // modules
                     imports: [

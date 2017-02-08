@@ -17,8 +17,11 @@ var concatCss = require('gulp-concat-css');
 /// Define paths
 var srcPaths = {
     app: ['Scripts/app/main.ts', 'Scripts/app/**/*.ts'],
+    images: ['Scripts/app/images/*.tiff', 'Scripts/app/images/*.jpg'],
     js: [
         'Scripts/js/**/*.js',
+        'Scripts/tiff/*.js',
+        'Scripts/raphael/*.js',
         'node_modules/core-js/client/shim.min.js',
         'node_modules/zone.js/dist/zone.js',
         'node_modules/reflect-metadata/Reflect.js',
@@ -41,8 +44,14 @@ var destPaths = {
     js: 'wwwroot/js/',
     html: 'wwwroot/view/',
     js_angular: 'wwwroot/js/@angular/',
-    js_rxjs: 'wwwroot/js/rxjs/'
+    js_rxjs: 'wwwroot/js/rxjs/',
+    images: 'wwwroot/images/',
 };
+
+gulp.task('images', function () {
+    return gulp.src(srcPaths.images)
+        .pipe(gulp.dest(destPaths.images))
+});
 
 // Compile, minify and create sourcemaps all TypeScript files 
 // and place them to wwwroot/app, together with their js.map files.
@@ -96,7 +105,7 @@ gulp.task('html', function () {
       .pipe(gulp.dest(destPaths.html));
 });
 // Define the default task so it will launch all other tasks
-gulp.task('default', ['app', 'js', 'watch', 'css', 'html']);
+gulp.task('default', ['app', 'js', 'watch', 'css', 'html', 'images']);
 
 //gulp.task('html', function ()  {
 //    return gulp.src('Scripts/app/*.html')

@@ -1,1 +1,14 @@
-`<h1>Charts</h1><div class="container"><div class="row"><div class="col-lg-11 text-center"><chart [options]="pieOptions"></chart></div></div><div class="row"><div class="col-lg-11 text-center"><img [attr.src]="imagePath"></div></div><div class="row"><div class="col-lg-11 text-center"><img [attr.src]="imageBase64"></div></div></div>
+`<h1>Charts</h1><div class="container"><div class="row"><div class="col-lg-11 text-center"><chart [options]="pieOptions"></chart></div></div><!--<div class="row">
+        <div class="col-lg-11 text-center col-lg-offset-1">
+            <embed [attr.src]="imagePath"  type="image/tiff"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-11 text-center col-lg-offset-1">
+            <canvas id="canvasContainer"/>
+        </div>
+    </div>--><!--<div class="row">
+        <div class="col-lg-11 text-center col-lg-offset-1">
+            <img [attr.src]="'data:image/jpg;base64,'+imageAsBytes" />
+        </div>
+    </div>--></div>

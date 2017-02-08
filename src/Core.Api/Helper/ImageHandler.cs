@@ -24,12 +24,14 @@ namespace Core.AngularJS2.Gulp.Demo.Helper
 
         public static ContainerDetail GetContainerDetails()
         {
+            var imagePath = @"http://localhost:61662/app/images/201210170023050017S.tiff";
+
             return new ContainerDetail()
             {
                 ContainerId = 1,
-                ContainerImage = @"https://www.dreamstime.com//royalty-free-stock-image-eurasian-dotterel-resting-hortobagy-image83879826",
-                ContainerImageBase64 = ImageHandler.ImageAsBase64(@"~\Images\201210170023050017S.tiff"),
-                //ContainerImageAsBytes = ImageHandler.ImageAsByteArray(@"C:\Users\CGupta\Source\Repos\Core.Angular2.NodeJs.Gulp.HighChart\src\Core.Api\Images\201210170023050017S.tiff")
+                ContainerImage = imagePath,
+                //ContainerImageBase64 = ImageAsBase64(imagePath),
+                //ContainerImageAsBytes = ImageAsByteArray(imagePath)
             };
         }
     }

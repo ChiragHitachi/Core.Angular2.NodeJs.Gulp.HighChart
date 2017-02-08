@@ -1,3 +1,19 @@
 ﻿`
 <h1>{{title}}</h1>
- 
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <span>Please select a supported image to upload  (PNG, JPG, TIF)</span>
+            <label class="fileUpload btn btn-primary btn-lg">
+                <input type="file" class="upload" (change)="onChange($event)" accept="image/jpeg,image/png,image/tiff,image/tif" />
+                <!--<span>Select Image <i class="fa fa-upload"></i></span>-->
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <img [src]="imagePath" />
+</div>
+<div class="row">
+    <canvas-viewer #imageViewer [imagePath]="imagePath" [overlays]="overlays" [options]="options"></canvas-viewer>
+</div>

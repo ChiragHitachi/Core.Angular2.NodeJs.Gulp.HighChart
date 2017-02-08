@@ -17,5 +17,5 @@ export interface IDashboardService {
 export interface IImageService {
     getImagePath: () => Observable<IContainerDetail>;
     getImageAsBase64: () => Observable<IContainerDetail>;
-    getImageAsByteArrray: () => Observable<IContainerDetail>;
+    getImageAsByteArrray: () => Observable<any>;
 }

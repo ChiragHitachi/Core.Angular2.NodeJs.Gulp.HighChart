@@ -22,7 +22,9 @@
     "systemjs": "^0.19.37",
     "typings": "^1.3.2",
     "zone.js": "^0.6.12",
-    "gulp-htmlmin": "3.0.0" 
+    "gulp-htmlmin": "3.0.0",
+    "raphael": "^2.2.7",
+    "tiff": "2.1.0"
   },
   "devDependencies": {
     "@types/node": "^6.0.59",

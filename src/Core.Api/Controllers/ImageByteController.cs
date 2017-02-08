@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Core.AngularJS2.Gulp.Demo.Helper;
 using Core.Api.Models;
+using System.Net.Http;
+using System.IO;
+using System.Net;
+using System.Net.Http.Headers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,9 +19,19 @@ namespace Core.Api.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public ContainerDetail Get()
+        public HttpResponseMessage Get()
         {
-            return ImageHandler.GetContainerDetails();
+            var imagePath = @"http://localhost:61662/app/images/201210170023050017S.tiff";
+
+
+            var stream = new FileStream(imagePath, FileMode.Open);
+            var content = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(stream)
+            };
+
+            content.Content.Headers.ContentType = new MediaTypeHeaderValue("image/tiff");
+            return content;
         }
     }
 }

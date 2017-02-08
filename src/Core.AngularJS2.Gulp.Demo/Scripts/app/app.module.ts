@@ -13,6 +13,7 @@ import { ChartComponent } from "./components/charts/chart.component";
 import { IntegrationComponent } from "./components/integration/integration.component";
 import { RedisCacheComponent } from "./components/redisCache/redisCache.component";
 import { SignalRComponent } from "./components/signalR/signalR.component";
+import { CanvasViewerComponent } from "./components/canvas/canvasViewer.component";
 
 import { AppRouting } from "./app.routing";
 import { WebRequest } from "./services/webRequest";
@@ -27,7 +28,8 @@ import { ImageService } from "./services/imageService";
         ChartComponent,
         IntegrationComponent,
         RedisCacheComponent,
-        SignalRComponent
+        SignalRComponent,
+        CanvasViewerComponent
     ],
     // modules
     imports: [

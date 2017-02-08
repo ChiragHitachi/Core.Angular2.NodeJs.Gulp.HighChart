@@ -8,8 +8,8 @@ export interface IResponse<T> {
 }
 
 export interface IContainerScanned {
-    received : number,
-    scanned : number
+    received: number,
+    scanned: number
 }
 
 export interface IContainerStatus {
@@ -21,7 +21,7 @@ export interface IContainerStatus {
 export interface IContainerDetail {
     containerId: number,
     containerImage: string,
-    containerImageBase64 : string,
+    containerImageBase64: string,
     containerImageAsBytes: string,
 }
 
@@ -30,4 +30,37 @@ export interface IWeatherForecast {
     temperatureC: number;
     temperatureF: number;
     summary: string;
+}
+export interface IImageZoom {
+    value: number,
+    step: number,
+    min: number,
+    max: number
+}
+
+export interface IImageRotate {
+    value: number,
+    step: number
+}
+
+export interface IImageControl {
+    toolbar: boolean,
+    image: boolean,
+    sound: boolean,
+    fit: string,
+    disableZoom: boolean,
+    disableMove: boolean,
+    disableRotate: boolean,
+    numPage: number,
+    totalPage: number,
+    filmStrip: boolean
+}
+
+export interface IImageOptions {
+    ctx: any,
+    adsrc: any,
+    zoom: IImageZoom,
+    rotate: IImageRotate,
+    controls: IImageControl,
+    info: any
 }

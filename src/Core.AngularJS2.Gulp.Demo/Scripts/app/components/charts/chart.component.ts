@@ -18,6 +18,8 @@ export class ChartComponent {
     pieOptions: any;
     chart3Options: any;
     barOptions: any;
+    imagePath: string;
+
 
     containerStatus: IContainerStatus;
 
@@ -119,6 +121,7 @@ export class ChartComponent {
                 }]
             }]
         };
+        this.imagePath = "/app/images/201210170023050017S.tiff"
 
     }
      

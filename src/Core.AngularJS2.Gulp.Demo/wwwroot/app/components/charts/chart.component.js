@@ -117,6 +117,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                                     }]
                             }]
                     };
+                    this.imagePath = "/app/images/201210170023050017S.tiff";
                 }
                 return ChartComponent;
             }());

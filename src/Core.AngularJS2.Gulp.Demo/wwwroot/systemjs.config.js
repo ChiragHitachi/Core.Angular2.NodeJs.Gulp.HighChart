@@ -31,7 +31,10 @@
 
             // other libraries
             'rxjs': 'npm:rxjs',
+            'tiff': 'npm:tiff',
+            'raphael' : 'npm:raphael',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
+            //'angular2-highcharts': 'npm:angular2-highcharts',
             'angular2-highcharts': 'https://cdn.rawgit.com/gevgeny/angular2-highcharts/v0.3.0/dist',
             'highcharts/highstock.src': 'https://cdn.rawgit.com/highcharts/highcharts-dist/v4.2.1/highstock.js'
         },
@@ -42,6 +45,12 @@
                 defaultExtension: 'js'
             },
             rxjs: {
+                defaultExtension: 'js'
+            },
+            tiff: {
+                defaultExtension: 'js'
+            },
+            raphael: {
                 defaultExtension: 'js'
             },
             'angular2-in-memory-web-api': {

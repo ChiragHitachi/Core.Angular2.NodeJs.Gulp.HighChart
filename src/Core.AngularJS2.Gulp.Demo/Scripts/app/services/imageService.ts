@@ -11,7 +11,7 @@ import { WebRequest } from "../services/webRequest";
 export class ImageService implements IImageService {
     getImagePath: () => Observable<IContainerDetail>;
     getImageAsBase64: () => Observable<IContainerDetail>;
-    getImageAsByteArrray: () => Observable<IContainerDetail>;
+    getImageAsByteArrray: () => Observable<any>;
 
     constructor( @Inject('IWebRequest') private webRequest: IWebRequest) {
         var vm = this;
@@ -25,7 +25,7 @@ export class ImageService implements IImageService {
         }
 
         vm.getImageAsByteArrray = () => {
-            return webRequest.get<IContainerDetail>("http://localhost:53919/api/ImageByte");
+            return webRequest.get<any>("http://localhost:53919/api/ImageByte");
         }
     }
 }

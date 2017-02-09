@@ -4,8 +4,7 @@ import { IResponse, IImageOptions } from "../../models/viewModels";
 
 @Component({
     selector: "home",
-    templateUrl: "/view/components/home/home.component.html",
-    
+    templateUrl: "/view/components/home/home.component.html"
 })
 
 export class HomeComponent {
@@ -23,16 +22,18 @@ export class HomeComponent {
     //npm install gulp-compress
     //npm install angular2-highcharts --save
     //npm install raphael
+    //npm i font-awesome - webpack
     options: IImageOptions;
     overlays = [];
 
     constructor() {
         var vm = this;
         vm.title = "Welcome Chirag Gupta";
-        //this.imagePath = "http://localhost:61662/images/container.tiff";
-        this.imagePath = "http://localhost:61662/images/test.jpg";
+        this.imagePath = "http://localhost:61662/images/container.tiff";
+        //this.imagePath = "http://localhost:61662/images/test.jpg";
+
         this.overlays = [{ x: 50, y: 155, w: 106, h: 29, color: '#00FF00' }];
-       // @ViewChild('imageViewer', undefined) imageViewer: CanvasViewerComponent;
+       // @ViewChild('canvasViewer', undefined) canvasViewer: CanvasViewerComponent;
         this.options = {
             ctx: null,
             adsrc: null,

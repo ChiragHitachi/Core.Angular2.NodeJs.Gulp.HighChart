@@ -2,7 +2,7 @@
 import { Component, ViewChild, Input } from "@angular/core";
 import { IResponse, IImageOptions } from "../../models/viewModels";
 //import 'js/tiff.js';
-//import { FormatReader } from "../canvas/FormatReader";
+
 @Component({
     selector: "canvas-viewer",
     templateUrl: "/view/components/canvas/canvasViewer.component.html"
@@ -15,7 +15,7 @@ export class CanvasViewerComponent {
     @Input() public imagePath;
     @Input() public options: IImageOptions;
     @Input() public overlays;
-    // @Input() HTMLTitleElement = "";
+    // @Input() title = "";
 
     curPos = { x: 0, y: 0 };
     picPos = { x: 0, y: 0 };
@@ -31,8 +31,8 @@ export class CanvasViewerComponent {
         this.options.ctx = this.context;
         var canvasSize = canvas.parentNode;
         this.context.canvas.width = canvasSize.clientWidth;
-        this.context.canvas.height = 900;//canvasSize.clientHeight;
-        var resize = { height: canvasSize.clientHeight, width: canvasSize.clientWidth };		
+        this.context.canvas.height = canvasSize.clientHeight;
+        var resize = { height: canvasSize.clientHeight, width: canvasSize.clientWidth };
         if (typeof (this.imagePath) === 'object') {
             // Object type file
             if (imageReader.IsSupported(this.imagePath.type)) {
@@ -65,15 +65,106 @@ export class CanvasViewerComponent {
         if (this.reader.rendered) {
             this.applyTransform();
         } else {
+
             this.resizeTo(this.options.controls.fit);
         }
     }
 
     zoom = (direction) => {
+        var oldWidth, newWidth = 0;
+        var oldHeight, newHeight = 0;
+        // Does reader support zoom ?
+        // Compute correct width
+        if (!this.reader.isZoom) {
+            oldWidth = this.reader.oldwidth;
+            oldHeight = this.reader.height;
+        } else {
+            oldWidth = this.reader.width * this.options.zoom.value;
+            oldHeight = this.reader.height * this.options.zoom.value;
+        }
+
+        // Compute new zoom
+        this.options.zoom.value += this.options.zoom.step * direction;
+        // Round
+        this.options.zoom.value = Math.round(this.options.zoom.value * 100) / 100;
+        if (this.options.zoom.value >= this.options.zoom.max) {
+            this.options.zoom.value = this.options.zoom.max;
+        }
+        if (this.options.zoom.value <= this.options.zoom.min) {
+            this.options.zoom.value = this.options.zoom.min;
+        }
+        // Refresh picture
+        if (this.reader.refresh != null) {
+            this.reader.refresh();
+        }
+
+        // Compute new image size
+        if (!this.reader.isZoom) {
+            newWidth = this.reader.width;
+            newHeight = this.reader.height;
+        } else {
+            newWidth = this.reader.width * this.options.zoom.value;
+            newHeight = this.reader.height * this.options.zoom.value;
+        }
+        // new image position after zoom
+        this.picPos.x = this.picPos.x - (newWidth - oldWidth) / 2;
+        this.picPos.y = this.picPos.y - (newHeight - oldHeight) / 2;
+        this.applyTransform();
+
     }
+
     rotate = (direction) => {
+        this.options.rotate.value += this.options.rotate.step * direction;
+        if ((this.options.rotate.value <= -360) || (this.options.rotate.value >= 360)) {
+            this.options.rotate.value = 0;
+        }
+        this.applyTransform();
     }
     resizeTo = (value) => {
+        if ((this.context.canvas == null) || (this.reader == null)) {
+            return;
+        }
+        // Compute page ratio
+        var options = this.options;
+        var ratioH = this.context.canvas.height / this.reader.height;
+        var ratioW = this.context.canvas.width / this.reader.width;
+        // If reader render zoom itself
+        // Precompute from its ratio
+        if (!this.reader.isZoom) {
+            ratioH *= this.options.zoom.value;
+            ratioW *= this.options.zoom.value;
+        }
+        // Adjust value
+        switch (value) {
+            case 'width': this.options.zoom.value = ratioW; break;
+            case 'height': this.options.zoom.value = ratioH; break;
+            case 'page':
+            default: this.options.zoom.value = Math.min(ratioH, ratioW);
+        }
+        this.options.zoom.value = Math.round(this.options.zoom.value * 100) / 100;
+        // Update options state
+        this.options.controls.fit = value;
+        if (!this.reader.isZoom) {
+            if (this.reader.refresh != null) {
+                this.reader.refresh();
+            }
+
+            // Re center image
+            this.centerPics();
+        } else {
+            // Re center image
+            this.centerPics();
+            this.applyTransform();
+        }
+    }
+
+    centerPics = () => {
+        // Position to canvas center
+        var centerX = this.context.canvas.width / 2;
+        var picPosX = 0;
+        picPosX = centerX - (this.reader.width * this.options.zoom.value) / 2;
+        this.curPos = { x: picPosX, y: 0 };
+        this.picPos = { x: picPosX, y: 0 };
     }
 
     applyTransform = () => {

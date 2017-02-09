@@ -1,11 +1,4 @@
-﻿//import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-//import { NgModule, Component, Inject, forwardRef, Injector, OpaqueToken } from "@angular/core";
-
-//import { BrowserModule } from '@angular/platform-browser';
-//import { Tiff } from 'tiff';
-
-
-function ImageReader() {
+﻿function ImageReader() {
     this.mimetype = [
         "image/png",
         "image/jpeg"
@@ -98,6 +91,7 @@ ImageReader.prototype = {
                         that.rendered = true;
                     }
                     that.img.src = that.tiff.toDataURL();
+                    options.ctx.drawImage(that.img, 0, 0);
                     that.currentPage = that.options.controls.numPage;
                 }
             }
@@ -137,6 +131,7 @@ ImageReader.prototype = {
         that.rendered = false;
         this.reader.onload = function () {
             that.img.src = that.reader.result;
+            options.ctx.drawImage(that.img, 0, 0);
         };
         if (typeof (data) === 'string') {
             that.img.src = data;

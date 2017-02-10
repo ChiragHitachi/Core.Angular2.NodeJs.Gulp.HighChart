@@ -95,7 +95,7 @@ export class CanvasViewerComponent {
         if (this.options.zoom.value <= this.options.zoom.min) {
             this.options.zoom.value = this.options.zoom.min;
         }
-        alert(this.options.zoom.value);
+        //alert(this.options.zoom.value);
         // Refresh picture
         if (this.reader.refresh != null) {
             this.reader.refresh();
@@ -117,7 +117,7 @@ export class CanvasViewerComponent {
     }
 
     rotate = (direction) => {
-        alert(this.options.zoom.value);
+       // alert(this.options.zoom.value);
 
         this.options.rotate.value += this.options.rotate.step * direction;
         if ((this.options.rotate.value <= -360) || (this.options.rotate.value >= 360)) {

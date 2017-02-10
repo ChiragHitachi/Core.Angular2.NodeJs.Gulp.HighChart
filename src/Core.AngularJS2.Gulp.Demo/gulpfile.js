@@ -28,14 +28,18 @@ var srcPaths = {
         'node_modules/systemjs/dist/system.src.js',
         'node_modules/typescript/lib/typescript.js',
         'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js',
-        'node_modules/moment/moment.js'
+        'node_modules/moment/moment.js',
+         'node_modules/bootstrap/**/*.js'
     ],
     js_angular: [
         'node_modules/@angular/**'
     ],
     js_rxjs: [
         'node_modules/rxjs/**'
-    ]
+    ],
+    icons: [
+        'node_modules/bootstrap/fonts/**'
+   ]
 };
 
 var destPaths = {
@@ -46,6 +50,7 @@ var destPaths = {
     js_angular: 'wwwroot/js/@angular/',
     js_rxjs: 'wwwroot/js/rxjs/',
     images: 'wwwroot/images/',
+    icons: 'wwwroot/app/fonts/'
 };
 
 gulp.task('images', function () {
@@ -95,7 +100,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('icons', function () {
-    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')         .pipe(gulp.dest('./public/fonts'));
+    return gulp.src(srcPaths.icons)         .pipe(gulp.dest(destPaths.icons));
 });
 
 gulp.task('css', function () {
@@ -109,7 +114,7 @@ gulp.task('html', function () {
       .pipe(gulp.dest(destPaths.html));
 });
 // Define the default task so it will launch all other tasks
-gulp.task('default', ['app', 'js', 'watch', 'css', 'html', 'images']);
+gulp.task('default', ['app', 'js', 'watch', 'css', 'html', 'images', 'icons']);
 
 //gulp.task('html', function ()  {
 //    return gulp.src('Scripts/app/*.html')

@@ -88,7 +88,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         if (_this.options.zoom.value <= _this.options.zoom.min) {
                             _this.options.zoom.value = _this.options.zoom.min;
                         }
-                        alert(_this.options.zoom.value);
+                        //alert(this.options.zoom.value);
                         // Refresh picture
                         if (_this.reader.refresh != null) {
                             _this.reader.refresh();
@@ -108,7 +108,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         _this.applyTransform();
                     };
                     this.rotate = function (direction) {
-                        alert(_this.options.zoom.value);
+                        // alert(this.options.zoom.value);
                         _this.options.rotate.value += _this.options.rotate.step * direction;
                         if ((_this.options.rotate.value <= -360) || (_this.options.rotate.value >= 360)) {
                             _this.options.rotate.value = 0;

@@ -21,7 +21,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             CanvasViewerComponent = (function () {
                 function CanvasViewerComponent() {
                     var _this = this;
-                    // @Input() HTMLTitleElement = "";
+                    // @Input() title = "";
                     this.curPos = { x: 0, y: 0 };
                     this.picPos = { x: 0, y: 0 };
                     this.mousePos = { x: 0, y: 0 };
@@ -34,6 +34,10 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         var canvas = _this.imageViewer.nativeElement;
                         _this.context = canvas.getContext("2d");
                         _this.options.ctx = _this.context;
+                        var canvasSize = canvas.parentNode;
+                        _this.context.canvas.width = canvasSize.clientWidth;
+                        _this.context.canvas.height = canvasSize.clientHeight;
+                        var resize = { height: canvasSize.clientHeight, width: canvasSize.clientWidth };
                         if (typeof (_this.imagePath) === 'object') {
                             // Object type file
                             if (imageReader.IsSupported(_this.imagePath.type)) {
@@ -61,10 +65,102 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         }
                     };
                     this.zoom = function (direction) {
+                        var oldWidth, newWidth = 0;
+                        var oldHeight, newHeight = 0;
+                        // Does reader support zoom ?
+                        // Compute correct width
+                        if (!_this.reader.isZoom) {
+                            oldWidth = _this.reader.oldwidth;
+                            oldHeight = _this.reader.height;
+                        }
+                        else {
+                            oldWidth = _this.reader.width * _this.options.zoom.value;
+                            oldHeight = _this.reader.height * _this.options.zoom.value;
+                        }
+                        // Compute new zoom
+                        _this.options.zoom.value += _this.options.zoom.step * direction;
+                        // Round
+                        _this.options.zoom.value = Math.round(_this.options.zoom.value * 100) / 100;
+                        if (_this.options.zoom.value >= _this.options.zoom.max) {
+                            _this.options.zoom.value = _this.options.zoom.max;
+                        }
+                        if (_this.options.zoom.value <= _this.options.zoom.min) {
+                            _this.options.zoom.value = _this.options.zoom.min;
+                        }
+                        // Refresh picture
+                        if (_this.reader.refresh != null) {
+                            _this.reader.refresh();
+                        }
+                        // Compute new image size
+                        if (!_this.reader.isZoom) {
+                            newWidth = _this.reader.width;
+                            newHeight = _this.reader.height;
+                        }
+                        else {
+                            newWidth = _this.reader.width * _this.options.zoom.value;
+                            newHeight = _this.reader.height * _this.options.zoom.value;
+                        }
+                        // new image position after zoom
+                        _this.picPos.x = _this.picPos.x - (newWidth - oldWidth) / 2;
+                        _this.picPos.y = _this.picPos.y - (newHeight - oldHeight) / 2;
+                        _this.applyTransform();
                     };
                     this.rotate = function (direction) {
+                        _this.options.rotate.value += _this.options.rotate.step * direction;
+                        if ((_this.options.rotate.value <= -360) || (_this.options.rotate.value >= 360)) {
+                            _this.options.rotate.value = 0;
+                        }
+                        _this.applyTransform();
+                        _this.resizeTo('page');
                     };
                     this.resizeTo = function (value) {
+                        if ((_this.context.canvas == null) || (_this.reader == null)) {
+                            return;
+                        }
+                        // Compute page ratio
+                        var options = _this.options;
+                        var ratioH = _this.context.canvas.height / _this.reader.height;
+                        var ratioW = _this.context.canvas.width / _this.reader.width;
+                        // If reader render zoom itself
+                        // Precompute from its ratio
+                        if (!_this.reader.isZoom) {
+                            ratioH *= _this.options.zoom.value;
+                            ratioW *= _this.options.zoom.value;
+                        }
+                        // Adjust value
+                        switch (value) {
+                            case 'width':
+                                _this.options.zoom.value = ratioW;
+                                break;
+                            case 'height':
+                                _this.options.zoom.value = ratioH;
+                                break;
+                            case 'page':
+                            default: _this.options.zoom.value = Math.min(ratioH, ratioW);
+                        }
+                        _this.options.zoom.value = Math.round(_this.options.zoom.value * 100) / 100;
+                        // Update options state
+                        _this.options.controls.fit = value;
+                        if (!_this.reader.isZoom) {
+                            if (_this.reader.refresh != null) {
+                                _this.reader.refresh();
+                            }
+                            // Re center image
+                            _this.centerPics();
+                        }
+                        else {
+                            // Re center image
+                            _this.centerPics();
+                            _this.applyTransform();
+                        }
+                    };
+                    this.centerPics = function () {
+                        // Position to canvas center
+                        var centerX = _this.context.canvas.width / 2;
+                        var picPosX = 0;
+                        picPosX = centerX - (_this.reader.width * _this.options.zoom.value) / 2;
+                        _this.curPos = { x: picPosX, y: 0 };
+                        _this.picPos = { x: picPosX, y: 0 };
                     };
                     this.applyTransform = function () {
                         if (_this.reader == null) {

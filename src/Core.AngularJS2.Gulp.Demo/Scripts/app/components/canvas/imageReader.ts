@@ -5,8 +5,7 @@
     ];
 
     // Is Tiff module present
-    if (typeof (Tiff) !== "undefined") 
-    {
+    if (typeof (Tiff) !== "undefined") {
         // Remove it from list
         this.mimetype.push("image/tif");
         this.mimetype.push("image/tiff");
@@ -15,7 +14,7 @@
 }
 
 ImageReader.prototype = {
-   
+
     tiffReader: function (data, options, callback) {
         if (options.controls.toolbar) {
             options.controls.image = true;
@@ -108,7 +107,7 @@ ImageReader.prototype = {
         this.reader.readAsArrayBuffer(data);
         return this;
     },
-    
+
     imageReader: function (data, options, callback) {
         if (options.controls.toolbar) {
             options.controls.image = true;
@@ -166,13 +165,10 @@ ImageReader.prototype = {
     IsSupported: function (mimeType) {
         return (this.mimetype.indexOf(mimeType) != -1);
     },
-    GuessMimeType: function (obj) {
+    GuessMimeType: function (fileName) {
         // try to guess mime type if not available
         var mimeType = "";
-        if (obj.type == "") {
-            var fileName = obj.name;
-            mimeType = "image/" + fileName.substring(fileName.indexOf('.') + 1);
-        }
+        mimeType = "image/" + fileName.substring(fileName.indexOf('.') + 1);
         return mimeType.toLowerCase();
     }
 }

@@ -44,7 +44,9 @@ export class CanvasViewerComponent {
                 console.log(this.imagePath.type, ' not supported !');
             }
         } else if (typeof (this.imagePath) === 'string') {
+            //this.reader = imageReader.CreateReader("", this.imagePath).create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
             this.reader = imageReader.CreateReader("image/jpeg").create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
+
         }
         this.applyTransform();
     }
@@ -93,6 +95,7 @@ export class CanvasViewerComponent {
         if (this.options.zoom.value <= this.options.zoom.min) {
             this.options.zoom.value = this.options.zoom.min;
         }
+        alert(this.options.zoom.value);
         // Refresh picture
         if (this.reader.refresh != null) {
             this.reader.refresh();
@@ -114,11 +117,14 @@ export class CanvasViewerComponent {
     }
 
     rotate = (direction) => {
+        alert(this.options.zoom.value);
+
         this.options.rotate.value += this.options.rotate.step * direction;
         if ((this.options.rotate.value <= -360) || (this.options.rotate.value >= 360)) {
             this.options.rotate.value = 0;
         }
         this.applyTransform();
+        //this.resizeTo('page');
     }
     resizeTo = (value) => {
         if ((this.context.canvas == null) || (this.reader == null)) {
@@ -166,6 +172,7 @@ export class CanvasViewerComponent {
         this.curPos = { x: picPosX, y: 0 };
         this.picPos = { x: picPosX, y: 0 };
     }
+
 
     applyTransform = () => {
         if (this.reader == null) {

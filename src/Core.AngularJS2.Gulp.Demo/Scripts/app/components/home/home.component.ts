@@ -23,6 +23,7 @@ export class HomeComponent {
     //npm install angular2-highcharts --save
     //npm install raphael
     //npm i font-awesome - webpack
+    //npm install bootstrap
     options: IImageOptions;
     overlays = [];
 

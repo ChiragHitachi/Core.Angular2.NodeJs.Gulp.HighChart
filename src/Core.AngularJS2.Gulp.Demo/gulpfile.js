@@ -94,6 +94,10 @@ gulp.task('watch', function () {
     gulp.watch([srcPaths.app, srcPaths.js], ['app', 'js']);
 });
 
+gulp.task('icons', function () {
+    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')         .pipe(gulp.dest('./public/fonts'));
+});
+
 gulp.task('css', function () {
     return gulp.src('Content/**/*.css')
       .pipe(concatCss("styles/bundle.css"))
@@ -109,9 +113,9 @@ gulp.task('default', ['app', 'js', 'watch', 'css', 'html', 'images']);
 
 //gulp.task('html', function ()  {
 //    return gulp.src('Scripts/app/*.html')
-      //.pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
-      //.pipe($.if('*.js', $.uglify()))
-      //.pipe($.if('*.css', $.cssnano()))
+//.pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
+//.pipe($.if('*.js', $.uglify()))
+//.pipe($.if('*.css', $.cssnano()))
 //      .pipe(htmlmin())
 //      .pipe(gulp.dest(destPaths.html));
 //});

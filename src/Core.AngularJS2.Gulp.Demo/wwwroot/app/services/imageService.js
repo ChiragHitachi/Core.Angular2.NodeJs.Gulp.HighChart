@@ -32,7 +32,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         return webRequest.get("http://localhost:53919/api/ImageBase64");
                     };
                     vm.getImageAsByteArrray = function () {
-                        return webRequest.get("http://localhost:53919/api/ImageByte");
+                        return webRequest.getImage("http://localhost:53919/api/ImageByte");
                     };
                 }
                 return ImageService;

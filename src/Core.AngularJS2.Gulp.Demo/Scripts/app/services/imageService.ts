@@ -25,7 +25,7 @@ export class ImageService implements IImageService {
         }
 
         vm.getImageAsByteArrray = () => {
-            return webRequest.get<any>("http://localhost:53919/api/ImageByte");
+            return webRequest.getImage<any>("http://localhost:53919/api/ImageByte");
         }
     }
 }

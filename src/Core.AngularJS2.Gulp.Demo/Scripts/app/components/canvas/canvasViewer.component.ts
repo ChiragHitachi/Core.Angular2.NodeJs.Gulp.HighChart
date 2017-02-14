@@ -1,7 +1,8 @@
 ﻿import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { Component, ViewChild, Input } from "@angular/core";
+import { Component, ViewChild, Input, HostListener } from "@angular/core";
 import { IResponse, IImageOptions } from "../../models/viewModels";
 //import 'js/tiff.js';
+import { Http, Response } from "@angular/http";
 
 @Component({
     selector: "canvas-viewer",
@@ -16,7 +17,7 @@ export class CanvasViewerComponent {
     @Input() public options: IImageOptions;
     @Input() public overlays;
     // @Input() title = "";
-
+    httpRequest: any;
     curPos = { x: 0, y: 0 };
     picPos = { x: 0, y: 0 };
     mousePos = { x: 0, y: 0 };
@@ -36,25 +37,38 @@ export class CanvasViewerComponent {
         if (typeof (this.imagePath) === 'object') {
             // Object type file
             if (imageReader.IsSupported(this.imagePath.type)) {
-                // get object
-                this.reader = imageReader.CreateReader(this.imagePath.type, this.imagePath).create(this.imagePath, this.options, this.onloadeddata);
-                // Create image
-                //this.reader = decoder.create(this.imagePath, this.options, onload);
+                this.reader = imageReader.CreateReader(this.imagePath.type, this.imagePath, this.httpRequest).create(this.imagePath, this.options, this.onloadeddata);
             } else {
                 console.log(this.imagePath.type, ' not supported !');
             }
         } else if (typeof (this.imagePath) === 'string') {
-            //this.reader = imageReader.CreateReader("", this.imagePath).create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
-            this.reader = imageReader.CreateReader("image/jpeg").create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
+            var options: any = {
+                url: this.imagePath,
+                method: 'GET',
+                responseType: 2
+            };
+            this.reader = imageReader.CreateReader("", this.imagePath).create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
 
+            //this.reader = imageReader.CreateReader("image/jpeg").create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
         }
         this.applyTransform();
     }
-    ngAfterViewInit() {
-        this.onchange();
-    }
-    constructor() {
+    //ngAfterViewInit() {
+    //    this.onchange();
+    //}
 
+    @HostListener('window:unload', ['$event'])
+    unloadHandler(event) {
+        alert('unload');
+    }
+
+    @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHander(event) {
+        alert('before unload');
+
+    }
+    constructor(private http: Http) {
+        this.httpRequest = http;
     }
     ngOnChanges() {
         this.onchange();
@@ -67,7 +81,6 @@ export class CanvasViewerComponent {
         if (this.reader.rendered) {
             this.applyTransform();
         } else {
-
             this.resizeTo(this.options.controls.fit);
         }
     }
@@ -117,7 +130,7 @@ export class CanvasViewerComponent {
     }
 
     rotate = (direction) => {
-       // alert(this.options.zoom.value);
+        // alert(this.options.zoom.value);
 
         this.options.rotate.value += this.options.rotate.step * direction;
         if ((this.options.rotate.value <= -360) || (this.options.rotate.value >= 360)) {

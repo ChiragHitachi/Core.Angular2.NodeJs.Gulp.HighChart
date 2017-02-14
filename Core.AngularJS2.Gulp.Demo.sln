@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6F79078-5C1B-4903-A6EB-441F1CCAD992}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Core.AngularJS2.Gulp.Demo", "src\Core.AngularJS2.Gulp.Demo\Core.AngularJS2.Gulp.Demo.xproj", "{2DEFA68C-2445-4F34-B097-C7787C6CC961}"

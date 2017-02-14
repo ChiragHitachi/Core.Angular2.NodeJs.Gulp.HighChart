@@ -24,7 +24,7 @@ namespace Core.AngularJS2.Gulp.Demo.Helper
 
         public static ContainerDetail GetContainerDetails()
         {
-            var imagePath = @"http://localhost:61662/app/images/201210170023050017S.tiff";
+            var imagePath = @"http://localhost:61662/images/container.tiff";
 
             return new ContainerDetail()
             {

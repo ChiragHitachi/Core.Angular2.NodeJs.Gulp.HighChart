@@ -6,6 +6,7 @@ import { IResponse, IContainerDetail } from "../models/viewModels";
 export interface IWebRequest {
     get: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<T>;
     post: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<IResponse<T>>;
+    getImage: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => any;
 
 }
 

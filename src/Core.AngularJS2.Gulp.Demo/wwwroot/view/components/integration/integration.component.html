@@ -1,14 +1,1 @@
-`<h1>Charts</h1><div class="container"><div class="row"><div class="col-lg-11 text-center"><chart [options]="pieOptions"></chart></div></div><!--<div class="row">
-        <div class="col-lg-11 text-center col-lg-offset-1">
-            <embed [attr.src]="imagePath"  type="image/tiff"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-11 text-center col-lg-offset-1">
-            <canvas id="canvasContainer"/>
-        </div>
-    </div>--><!--<div class="row">
-        <div class="col-lg-11 text-center col-lg-offset-1">
-            <img [attr.src]="'data:image/jpg;base64,'+imageAsBytes" />
-        </div>
-    </div>--></div>
+`<h1>Charts</h1><div class="container"><div class="row"><div class="col-lg-11 text-center"><chart [options]="pieOptions"></chart></div></div><h3>To List Items</h3><div class="row"><div class="col-md-5">To Do Id</div><div class="col-md-5">Text</div></div><div class="row" *ngFor="let item of toDoList"><div class="col-md-5">{{item.toDoId}}</div><div class="col-md-5">{{item.toDoText}}</div></div></div>

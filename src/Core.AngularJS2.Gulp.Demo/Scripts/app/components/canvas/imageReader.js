@@ -10,6 +10,8 @@ function ImageReader() {
         this.mimetype.push("image/tiff");
     }
 }
+function response(e) {
+}
 ImageReader.prototype = {
     tiffReader: function (data, options, callback) {
         if (options.controls.toolbar) {
@@ -93,10 +95,39 @@ ImageReader.prototype = {
                 that.tiff.close();
                 that.tiff = null;
             }
-            Tiff.initialize({ TOTAL_MEMORY: 16777216 * 5 });
+            Tiff.initialize({ TOTAL_MEMORY: 16777216 * 5 }); //100000000
             that.refresh();
         };
-        this.reader.readAsArrayBuffer(data);
+        if (typeof (data) == 'string') {
+            that.img = new Image();
+            if (data.indexOf('Tiff') >= 0) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", data);
+                xhr.responseType = "arraybuffer";
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        var tiff = new Tiff({ buffer: xhr.response });
+                        that.tiff = tiff;
+                        that.width = that.tiff.width();
+                        that.height = that.tiff.height();
+                        that.img = new Image();
+                        that.img.onload = function () {
+                            callback();
+                            that.rendered = true;
+                        };
+                        that.img.src = that.tiff.toDataURL();
+                        //var base64 = base64ArrayBuffer(xhr.response);
+                        //that.img.src = base64;
+                        options.ctx.drawImage(that.img, 0, 0);
+                    }
+                };
+                xhr.send();
+            }
+            else
+                that.img.src = data;
+        }
+        else
+            this.reader.readAsArrayBuffer(data);
         return this;
     },
     imageReader: function (data, options, callback) {
@@ -158,13 +189,10 @@ ImageReader.prototype = {
     IsSupported: function (mimeType) {
         return (this.mimetype.indexOf(mimeType) != -1);
     },
-    GuessMimeType: function (obj) {
+    GuessMimeType: function (fileName) {
         // try to guess mime type if not available
         var mimeType = "";
-        if (obj.type == "") {
-            var fileName = obj.name;
-            mimeType = "image/" + fileName.substring(fileName.indexOf('.') + 1);
-        }
+        mimeType = "image/" + fileName.substring(fileName.indexOf('.') + 1);
         return mimeType.toLowerCase();
-    }
+    },
 };

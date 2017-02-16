@@ -23,80 +23,13 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         execute: function () {
             HomeComponent = (function () {
                 function HomeComponent(imageService) {
-                    var _this = this;
                     this.imageService = imageService;
                     this.overlays = [];
-                    this.getImageBytes = function () {
-                        _this.imageService.getImageAsByteArrray().subscribe(function (result) {
-                            var canvas = _this.tiffViewer.nativeElement;
-                            _this.tiffContext = canvas.getContext("2d");
-                            _this.img = new Image();
-                            //var file = new Blob([result._body]);
-                            //this.imagePath = file;
-                            //var fileURL = URL.createObjectURL(file);
-                            //window.open(fileURL);
-                            //this.img.src = fileURL;
-                            //this.imageBytes = result._body;
-                            //var uInt8Array = new Uint8Array(this.imageBytes);
-                            //var i = uInt8Array.length;
-                            //var binaryString = new Array(i);
-                            //while (i--) {
-                            //    binaryString[i] = String.fromCharCode(uInt8Array[i]);
-                            //}
-                            //var data = binaryString.join('');
-                            //// Base64 encoded image and assign it to the scope
-                            //this.imageAsBytes = window.btoa(data);
-                            //console.info(this.imageAsBytes);
-                            var base = _this.base64ArrayBuffer(result._body);
-                            _this.img.src = "data:image/png;base64," + base;
-                            _this.tiffContext.drawImage(_this.img, 0, 0);
-                        });
-                    };
-                    this.base64ArrayBuffer = function (arrayBuffer) {
-                        var base64 = '';
-                        var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-                        var bytes = new Uint8Array(arrayBuffer);
-                        var byteLength = bytes.byteLength;
-                        var byteRemainder = byteLength % 3;
-                        var mainLength = byteLength - byteRemainder;
-                        var a, b, c, d;
-                        var chunk;
-                        // Main loop deals with bytes in chunks of 3
-                        for (var i = 0; i < mainLength; i = i + 3) {
-                            // Combine the three bytes into a single integer
-                            chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
-                            // Use bitmasks to extract 6-bit segments from the triplet
-                            a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
-                            b = (chunk & 258048) >> 12; // 258048   = (2^6 - 1) << 12
-                            c = (chunk & 4032) >> 6; // 4032     = (2^6 - 1) << 6
-                            d = chunk & 63; // 63       = 2^6 - 1
-                            // Convert the raw binary segments to the appropriate ASCII encoding
-                            base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
-                        }
-                        // Deal with the remaining bytes and padding
-                        if (byteRemainder == 1) {
-                            chunk = bytes[mainLength];
-                            a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
-                            // Set the 4 least significant bits to zero
-                            b = (chunk & 3) << 4; // 3   = 2^2 - 1
-                            base64 += encodings[a] + encodings[b] + '==';
-                        }
-                        else if (byteRemainder == 2) {
-                            chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
-                            a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
-                            b = (chunk & 1008) >> 4; // 1008  = (2^6 - 1) << 4
-                            // Set the 2 least significant bits to zero
-                            c = (chunk & 15) << 2; // 15    = 2^4 - 1
-                            base64 += encodings[a] + encodings[b] + encodings[c] + '=';
-                        }
-                        return base64;
-                    };
                     var vm = this;
                     vm.title = "Welcome Chirag Gupta";
                     this.imagePath = "http://localhost:53428/Images/Container.Tiff";
                     //this.imagePath = "http://localhost:61662/images/test.jpg";
                     this.overlays = [{ x: 50, y: 155, w: 106, h: 29, color: '#00FF00' }];
-                    // @ViewChild('canvasViewer', undefined) canvasViewer: CanvasViewerComponent;
                     this.options = {
                         ctx: null,
                         adsrc: null,
@@ -124,14 +57,23 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         },
                         info: {}
                     };
-                    //this.getImageBytes();
                 }
                 HomeComponent.prototype.onChange = function (event) {
                     this.imagePath = event.srcElement.files[0];
-                    var eventObj = event;
-                    var target = eventObj.target;
-                    var files = target.files;
-                    //this.imagePath = files[0];
+                    //let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+                    //let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+                    //let files: FileList = target.files;
+                    //careerstage_td.selectAll('div')
+                    //    .data(dataset)
+                    //    .enter().append('div')
+                    //    .attr("class", "career-count")
+                    //    .text(function (d) { return d; })
+                    //    .style("color", function (d) { return d.color; })
+                    //    .append('div')
+                    //    .attr("class", "childClass")
+                    //    .style("background-image", function (d) { return "url('images/" + d.icon + "')"; })
+                    //    .style("background-repeat", "no-repeat")
+                    //    .style("background-position", "center center");
                 };
                 return HomeComponent;
             }());

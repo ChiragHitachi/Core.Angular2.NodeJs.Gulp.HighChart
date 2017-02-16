@@ -10,6 +10,13 @@ namespace Core.AngularJS2.Gulp.Demo.Helper
 {
     public static class ImageHandler
     {
+        public static IList<ToDo> _toDoList = new List<ToDo>() {
+            new ToDo() { ToDoId = 1, IsCompleted = false, ToDoText = "Buy Milk", ToDoTime = DateTime.Now },
+            new ToDo() { ToDoId = 2, IsCompleted = false, ToDoText = "Buy Vegetables", ToDoTime = DateTime.Now.AddDays(1) },
+            new ToDo() { ToDoId = 3, IsCompleted = false, ToDoText = "Pay Elec Bill", ToDoTime = DateTime.Now.AddDays(10) },
+            new ToDo() { ToDoId = 4, IsCompleted = false, ToDoText = "Pay House Rent", ToDoTime = DateTime.Now.AddDays(20) },
+
+        };
         public static Byte[] ImageAsByteArray(string imagePath)
         {
             return File.ReadAllBytes(imagePath);
@@ -33,6 +40,11 @@ namespace Core.AngularJS2.Gulp.Demo.Helper
                 //ContainerImageBase64 = ImageAsBase64(imagePath),
                 //ContainerImageAsBytes = ImageAsByteArray(imagePath)
             };
+        }
+
+        public static IList<ToDo> GetToDoItems()
+        {
+            return _toDoList;
         }
     }
 }

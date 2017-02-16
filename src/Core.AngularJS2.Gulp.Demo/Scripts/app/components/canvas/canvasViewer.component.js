@@ -1,4 +1,4 @@
-System.register(["@angular/core"], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/http"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,18 +10,21 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, CanvasViewerComponent;
+    var core_1, http_1, CanvasViewerComponent;
     return {
         setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }
         ],
         execute: function () {
             CanvasViewerComponent = (function () {
-                function CanvasViewerComponent() {
+                function CanvasViewerComponent(http) {
                     var _this = this;
-                    // @Input() title = "";
+                    this.http = http;
                     this.curPos = { x: 0, y: 0 };
                     this.picPos = { x: 0, y: 0 };
                     this.mousePos = { x: 0, y: 0 };
@@ -41,15 +44,19 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         if (typeof (_this.imagePath) === 'object') {
                             // Object type file
                             if (imageReader.IsSupported(_this.imagePath.type)) {
-                                // get object
-                                _this.reader = imageReader.CreateReader(_this.imagePath.type, _this.imagePath).create(_this.imagePath, _this.options, _this.onloadeddata);
+                                _this.reader = imageReader.CreateReader(_this.imagePath.type, _this.imagePath, _this.httpRequest).create(_this.imagePath, _this.options, _this.onloadeddata);
                             }
                             else {
                                 console.log(_this.imagePath.type, ' not supported !');
                             }
                         }
                         else if (typeof (_this.imagePath) === 'string') {
-                            _this.reader = imageReader.CreateReader("image/jpeg").create(_this.imagePath, _this.options, _this.onloadeddata); //, $q, $timeout);
+                            var options = {
+                                url: _this.imagePath,
+                                method: 'GET',
+                                responseType: 2
+                            };
+                            _this.reader = imageReader.CreateReader("", _this.imagePath).create(_this.imagePath, _this.options, _this.onloadeddata); //, $q, $timeout);
                         }
                         _this.applyTransform();
                     };
@@ -87,6 +94,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         if (_this.options.zoom.value <= _this.options.zoom.min) {
                             _this.options.zoom.value = _this.options.zoom.min;
                         }
+                        //alert(this.options.zoom.value);
                         // Refresh picture
                         if (_this.reader.refresh != null) {
                             _this.reader.refresh();
@@ -106,12 +114,13 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         _this.applyTransform();
                     };
                     this.rotate = function (direction) {
+                        // alert(this.options.zoom.value);
                         _this.options.rotate.value += _this.options.rotate.step * direction;
                         if ((_this.options.rotate.value <= -360) || (_this.options.rotate.value >= 360)) {
                             _this.options.rotate.value = 0;
                         }
                         _this.applyTransform();
-                        _this.resizeTo('page');
+                        //this.resizeTo('page');
                     };
                     this.resizeTo = function (value) {
                         if ((_this.context.canvas == null) || (_this.reader == null)) {
@@ -265,9 +274,16 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                             }
                         }
                     };
+                    this.httpRequest = http;
                 }
-                CanvasViewerComponent.prototype.ngAfterViewInit = function () {
-                    this.onchange();
+                //ngAfterViewInit() {
+                //    this.onchange();
+                //}
+                CanvasViewerComponent.prototype.unloadHandler = function (event) {
+                    alert('unload');
+                };
+                CanvasViewerComponent.prototype.beforeUnloadHander = function (event) {
+                    alert('before unload');
                 };
                 CanvasViewerComponent.prototype.ngOnChanges = function () {
                     this.onchange();
@@ -290,12 +306,24 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                 core_1.Input(),
                 __metadata("design:type", Object)
             ], CanvasViewerComponent.prototype, "overlays", void 0);
+            __decorate([
+                core_1.HostListener('window:unload', ['$event']),
+                __metadata("design:type", Function),
+                __metadata("design:paramtypes", [Object]),
+                __metadata("design:returntype", void 0)
+            ], CanvasViewerComponent.prototype, "unloadHandler", null);
+            __decorate([
+                core_1.HostListener('window:beforeunload', ['$event']),
+                __metadata("design:type", Function),
+                __metadata("design:paramtypes", [Object]),
+                __metadata("design:returntype", void 0)
+            ], CanvasViewerComponent.prototype, "beforeUnloadHander", null);
             CanvasViewerComponent = __decorate([
                 core_1.Component({
                     selector: "canvas-viewer",
                     templateUrl: "/view/components/canvas/canvasViewer.component.html"
                 }),
-                __metadata("design:paramtypes", [])
+                __metadata("design:paramtypes", [http_1.Http])
             ], CanvasViewerComponent);
             exports_1("CanvasViewerComponent", CanvasViewerComponent);
         }

@@ -2,25 +2,25 @@
   "_args": [
     [
       {
-        "raw": "@angular/platform-browser-dynamic@2.4.2",
+        "raw": "@angular/platform-browser-dynamic@^2.3.0",
         "scope": "@angular",
         "escapedName": "@angular%2fplatform-browser-dynamic",
         "name": "@angular/platform-browser-dynamic",
-        "rawSpec": "2.4.2",
-        "spec": "2.4.2",
-        "type": "version"
+        "rawSpec": "^2.3.0",
+        "spec": ">=2.3.0 <3.0.0",
+        "type": "range"
       },
-      "D:\\Chirag\\SP3\\R&D\\Core.AngularJS2.Gulp.Demo\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
+      "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
     ]
   ],
-  "_from": "@angular/platform-browser-dynamic@2.4.2",
-  "_id": "@angular/platform-browser-dynamic@2.4.2",
+  "_from": "@angular/platform-browser-dynamic@>=2.3.0 <3.0.0",
+  "_id": "@angular/platform-browser-dynamic@2.4.7",
   "_inCache": true,
   "_location": "/@angular/platform-browser-dynamic",
   "_nodeVersion": "6.9.1",
   "_npmOperationalInternal": {
     "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/platform-browser-dynamic-2.4.2.tgz_1483735994965_0.8455217883456498"
+    "tmp": "tmp/platform-browser-dynamic-2.4.7.tgz_1486615234258_0.652232006425038"
   },
   "_npmUser": {
     "name": "angular",
@@ -29,23 +29,22 @@
   "_npmVersion": "3.10.8",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "@angular/platform-browser-dynamic@2.4.2",
+    "raw": "@angular/platform-browser-dynamic@^2.3.0",
     "scope": "@angular",
     "escapedName": "@angular%2fplatform-browser-dynamic",
     "name": "@angular/platform-browser-dynamic",
-    "rawSpec": "2.4.2",
-    "spec": "2.4.2",
-    "type": "version"
+    "rawSpec": "^2.3.0",
+    "spec": ">=2.3.0 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.2.tgz",
-  "_shasum": "fe1fd5e41c2cab789039faaa9899389357100be1",
+  "_resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.7.tgz",
+  "_shasum": "9632586f9ce596186be4c124c3ea0a4a74b27b46",
   "_shrinkwrap": null,
-  "_spec": "@angular/platform-browser-dynamic@2.4.2",
-  "_where": "D:\\Chirag\\SP3\\R&D\\Core.AngularJS2.Gulp.Demo\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
+  "_spec": "@angular/platform-browser-dynamic@^2.3.0",
+  "_where": "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
   "author": {
     "name": "angular"
   },
@@ -57,8 +56,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "fe1fd5e41c2cab789039faaa9899389357100be1",
-    "tarball": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.2.tgz"
+    "shasum": "9632586f9ce596186be4c124c3ea0a4a74b27b46",
+    "tarball": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.7.tgz"
   },
   "homepage": "https://github.com/angular/angular#readme",
   "license": "MIT",
@@ -73,10 +72,10 @@
   "name": "@angular/platform-browser-dynamic",
   "optionalDependencies": {},
   "peerDependencies": {
-    "@angular/core": "2.4.2",
-    "@angular/common": "2.4.2",
-    "@angular/compiler": "2.4.2",
-    "@angular/platform-browser": "2.4.2"
+    "@angular/core": "2.4.7",
+    "@angular/common": "2.4.7",
+    "@angular/compiler": "2.4.7",
+    "@angular/platform-browser": "2.4.7"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -85,5 +84,5 @@
   },
   "scripts": {},
   "typings": "index.d.ts",
-  "version": "2.4.2"
+  "version": "2.4.7"
 }

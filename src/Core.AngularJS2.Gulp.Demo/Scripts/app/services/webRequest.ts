@@ -6,8 +6,8 @@ import { IWebRequest } from "../interfaces/interfaces";
 
 @Injectable()
 export class WebRequest implements IWebRequest {
-    get: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<IResponse<T>>;
-    post: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<IResponse<T>>;
+    get: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<T>;
+    post: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => Observable<T>;
     getImage: <T>(url: string, data?: any, params?: any, header?: any, goToErrorState?: boolean) => any;
 
     constructor(private http: Http) {

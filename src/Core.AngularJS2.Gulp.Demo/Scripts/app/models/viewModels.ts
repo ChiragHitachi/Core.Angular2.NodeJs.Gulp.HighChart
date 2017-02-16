@@ -64,3 +64,10 @@ export interface IImageOptions {
     controls: IImageControl,
     info: any
 }
+
+export interface IToDo {
+    toDoId: number,
+    toDoText: string,
+    toDoTime: Date,
+    isCompleted:boolean
+}

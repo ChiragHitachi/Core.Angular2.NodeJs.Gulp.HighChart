@@ -28,6 +28,12 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     vm.getContainerScanStatus = function () {
                         return webRequest.get("http://localhost:53919/api/ContainerStatus");
                     };
+                    vm.getToDoList = function () {
+                        return webRequest.get("http://localhost:53919/api/ToDoList");
+                    };
+                    vm.getToDoItem = function (id) {
+                        return webRequest.get("http://localhost:53919/api/ToDoList", null, id);
+                    };
                 }
                 return DashboardService;
             }());

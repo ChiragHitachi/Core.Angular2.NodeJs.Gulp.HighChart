@@ -9,6 +9,9 @@ System.register(["@angular/core"], function (exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
+    var __param = (this && this.__param) || function (paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    };
     var __moduleName = context_1 && context_1.id;
     var core_1, HomeComponent;
     return {
@@ -19,14 +22,14 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         ],
         execute: function () {
             HomeComponent = (function () {
-                function HomeComponent() {
+                function HomeComponent(imageService) {
+                    this.imageService = imageService;
                     this.overlays = [];
                     var vm = this;
                     vm.title = "Welcome Chirag Gupta";
-                    this.imagePath = "http://localhost:61662/images/container.tiff";
+                    this.imagePath = "http://localhost:53428/Images/Container.Tiff";
                     //this.imagePath = "http://localhost:61662/images/test.jpg";
                     this.overlays = [{ x: 50, y: 155, w: 106, h: 29, color: '#00FF00' }];
-                    // @ViewChild('canvasViewer', undefined) canvasViewer: CanvasViewerComponent;
                     this.options = {
                         ctx: null,
                         adsrc: null,
@@ -57,19 +60,34 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                 }
                 HomeComponent.prototype.onChange = function (event) {
                     this.imagePath = event.srcElement.files[0];
-                    var eventObj = event;
-                    var target = eventObj.target;
-                    var files = target.files;
-                    //this.imagePath = files[0];
+                    //let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+                    //let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+                    //let files: FileList = target.files;
+                    //careerstage_td.selectAll('div')
+                    //    .data(dataset)
+                    //    .enter().append('div')
+                    //    .attr("class", "career-count")
+                    //    .text(function (d) { return d; })
+                    //    .style("color", function (d) { return d.color; })
+                    //    .append('div')
+                    //    .attr("class", "childClass")
+                    //    .style("background-image", function (d) { return "url('images/" + d.icon + "')"; })
+                    //    .style("background-repeat", "no-repeat")
+                    //    .style("background-position", "center center");
                 };
                 return HomeComponent;
             }());
+            __decorate([
+                core_1.ViewChild("tiffViewer"),
+                __metadata("design:type", Object)
+            ], HomeComponent.prototype, "tiffViewer", void 0);
             HomeComponent = __decorate([
                 core_1.Component({
                     selector: "home",
                     templateUrl: "/view/components/home/home.component.html"
                 }),
-                __metadata("design:paramtypes", [])
+                __param(0, core_1.Inject('IImageService')),
+                __metadata("design:paramtypes", [Object])
             ], HomeComponent);
             exports_1("HomeComponent", HomeComponent);
         }

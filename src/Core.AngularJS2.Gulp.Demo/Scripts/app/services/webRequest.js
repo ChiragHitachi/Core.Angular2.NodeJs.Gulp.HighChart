@@ -34,11 +34,40 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable"], function 
                             .map(function (response) { return response.json(); })
                             .catch(_this.handleError);
                     };
+                    vm.getImage = function (url, data, params, header, goToErrorState) {
+                        //let headers = new Headers({ responseType: 'arraybuffer'  });
+                        //var headers = new Headers();
+                        // headers.append("Content-Type", 'application/json');
+                        //headers.append("Authorization", 'Bearer ' + localStorage.getItem('id_token'))
+                        var options = new http_1.RequestOptions({ method: http_1.RequestMethod.Get, url: url, responseType: http_1.ResponseContentType.ArrayBuffer });
+                        //return this.http.get(url, options);
+                        return _this.http.request(new http_1.Request(options));
+                        //.map(response =>  response)
+                        //.catch(this.handleError);
+                    };
                     vm.post = function (url, data, params, header, goToErrorState) {
                         return _this.http.post(url, data)
                             .map(function (response) { return response.json(); })
                             .catch(_this.handleError);
                     };
+                    function getRequest(method, url, data, params, header, timeout) {
+                        var request = {
+                            method: method,
+                            url: url,
+                            data: null,
+                            params: null,
+                            headers: null,
+                        };
+                        if (data)
+                            request.data = data;
+                        if (params)
+                            request.params = params;
+                        if (header)
+                            request.headers = header;
+                        if (timeout)
+                            request.timeout = timeout;
+                        return request;
+                    }
                 }
                 WebRequest.prototype.handleError = function (error) {
                     console.error(error);

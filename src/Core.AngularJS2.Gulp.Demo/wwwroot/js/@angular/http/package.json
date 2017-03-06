@@ -2,49 +2,49 @@
   "_args": [
     [
       {
-        "raw": "@angular/http@^2.3.0",
+        "raw": "@angular/http@2.4.8",
         "scope": "@angular",
         "escapedName": "@angular%2fhttp",
         "name": "@angular/http",
-        "rawSpec": "^2.3.0",
-        "spec": ">=2.3.0 <3.0.0",
-        "type": "range"
+        "rawSpec": "2.4.8",
+        "spec": "2.4.8",
+        "type": "version"
       },
-      "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
+      "C:\\Users\\CGupta\\Source\\Repos\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
     ]
   ],
-  "_from": "@angular/http@>=2.3.0 <3.0.0",
-  "_id": "@angular/http@2.4.7",
+  "_from": "@angular/http@2.4.8",
+  "_id": "@angular/http@2.4.8",
   "_inCache": true,
   "_location": "/@angular/http",
-  "_nodeVersion": "6.9.1",
+  "_nodeVersion": "6.9.5",
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/http-2.4.7.tgz_1486615227309_0.43276337697170675"
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/http-2.4.8.tgz_1487455865781_0.4736903076991439"
   },
   "_npmUser": {
     "name": "angular",
     "email": "angular-core+npm@google.com"
   },
-  "_npmVersion": "3.10.8",
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "@angular/http@^2.3.0",
+    "raw": "@angular/http@2.4.8",
     "scope": "@angular",
     "escapedName": "@angular%2fhttp",
     "name": "@angular/http",
-    "rawSpec": "^2.3.0",
-    "spec": ">=2.3.0 <3.0.0",
-    "type": "range"
+    "rawSpec": "2.4.8",
+    "spec": "2.4.8",
+    "type": "version"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@angular/http/-/http-2.4.7.tgz",
-  "_shasum": "b024b2b49ae0234258d42309e46f65862a42070d",
+  "_resolved": "https://registry.npmjs.org/@angular/http/-/http-2.4.8.tgz",
+  "_shasum": "e81ac8e4db836ed813edc4ffa137596cd5836baf",
   "_shrinkwrap": null,
-  "_spec": "@angular/http@^2.3.0",
-  "_where": "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
+  "_spec": "@angular/http@2.4.8",
+  "_where": "C:\\Users\\CGupta\\Source\\Repos\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
   "author": {
     "name": "angular"
   },
@@ -56,8 +56,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "b024b2b49ae0234258d42309e46f65862a42070d",
-    "tarball": "https://registry.npmjs.org/@angular/http/-/http-2.4.7.tgz"
+    "shasum": "e81ac8e4db836ed813edc4ffa137596cd5836baf",
+    "tarball": "https://registry.npmjs.org/@angular/http/-/http-2.4.8.tgz"
   },
   "homepage": "https://github.com/angular/angular#readme",
   "license": "MIT",
@@ -73,8 +73,8 @@
   "optionalDependencies": {},
   "peerDependencies": {
     "rxjs": "^5.0.1",
-    "@angular/core": "2.4.7",
-    "@angular/platform-browser": "2.4.7"
+    "@angular/core": "2.4.8",
+    "@angular/platform-browser": "2.4.8"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -83,5 +83,5 @@
   },
   "scripts": {},
   "typings": "index.d.ts",
-  "version": "2.4.7"
+  "version": "2.4.8"
 }

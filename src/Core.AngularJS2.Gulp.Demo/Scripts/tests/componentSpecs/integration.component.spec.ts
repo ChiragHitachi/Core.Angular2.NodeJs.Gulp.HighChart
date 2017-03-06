@@ -1,5 +1,5 @@
 ﻿import { ServiceMocker } from "../../tests/mocks/serviceMocker";
-import { IResponse, IContainerScanned, IContainerStatus, IToDo } from "../../app/models/viewModels";
+import { IResponse, IContainerScanned, IContainerStatus, Role } from "../../app/models/viewModels";
 import { IDashboardService, IImageService } from "../../app/interfaces/interfaces";
 import { IntegrationComponent } from "../../app/components/integration/integration.component";
 

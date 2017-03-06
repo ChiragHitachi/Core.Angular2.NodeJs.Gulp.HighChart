@@ -2,49 +2,49 @@
   "_args": [
     [
       {
-        "raw": "@angular/upgrade@^2.3.0",
+        "raw": "@angular/upgrade@2.4.8",
         "scope": "@angular",
         "escapedName": "@angular%2fupgrade",
         "name": "@angular/upgrade",
-        "rawSpec": "^2.3.0",
-        "spec": ">=2.3.0 <3.0.0",
-        "type": "range"
+        "rawSpec": "2.4.8",
+        "spec": "2.4.8",
+        "type": "version"
       },
-      "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
+      "C:\\Users\\CGupta\\Source\\Repos\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
     ]
   ],
-  "_from": "@angular/upgrade@>=2.3.0 <3.0.0",
-  "_id": "@angular/upgrade@2.4.7",
+  "_from": "@angular/upgrade@2.4.8",
+  "_id": "@angular/upgrade@2.4.8",
   "_inCache": true,
   "_location": "/@angular/upgrade",
-  "_nodeVersion": "6.9.1",
+  "_nodeVersion": "6.9.5",
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/upgrade-2.4.7.tgz_1486615244735_0.5620013067964464"
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/upgrade-2.4.8.tgz_1487455887282_0.683893563458696"
   },
   "_npmUser": {
     "name": "angular",
     "email": "angular-core+npm@google.com"
   },
-  "_npmVersion": "3.10.8",
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "@angular/upgrade@^2.3.0",
+    "raw": "@angular/upgrade@2.4.8",
     "scope": "@angular",
     "escapedName": "@angular%2fupgrade",
     "name": "@angular/upgrade",
-    "rawSpec": "^2.3.0",
-    "spec": ">=2.3.0 <3.0.0",
-    "type": "range"
+    "rawSpec": "2.4.8",
+    "spec": "2.4.8",
+    "type": "version"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@angular/upgrade/-/upgrade-2.4.7.tgz",
-  "_shasum": "bf051ac2ff84f2e0ccfd39ce8390a16d98a49c6c",
+  "_resolved": "https://registry.npmjs.org/@angular/upgrade/-/upgrade-2.4.8.tgz",
+  "_shasum": "1dc4843d44723206f5a90675ba9c0b02e0a357c7",
   "_shrinkwrap": null,
-  "_spec": "@angular/upgrade@^2.3.0",
-  "_where": "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
+  "_spec": "@angular/upgrade@2.4.8",
+  "_where": "C:\\Users\\CGupta\\Source\\Repos\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
   "author": {
     "name": "angular"
   },
@@ -56,8 +56,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "bf051ac2ff84f2e0ccfd39ce8390a16d98a49c6c",
-    "tarball": "https://registry.npmjs.org/@angular/upgrade/-/upgrade-2.4.7.tgz"
+    "shasum": "1dc4843d44723206f5a90675ba9c0b02e0a357c7",
+    "tarball": "https://registry.npmjs.org/@angular/upgrade/-/upgrade-2.4.8.tgz"
   },
   "homepage": "https://github.com/angular/angular#readme",
   "license": "MIT",
@@ -72,10 +72,10 @@
   "name": "@angular/upgrade",
   "optionalDependencies": {},
   "peerDependencies": {
-    "@angular/core": "2.4.7",
-    "@angular/compiler": "2.4.7",
-    "@angular/platform-browser": "2.4.7",
-    "@angular/platform-browser-dynamic": "2.4.7"
+    "@angular/core": "2.4.8",
+    "@angular/compiler": "2.4.8",
+    "@angular/platform-browser": "2.4.8",
+    "@angular/platform-browser-dynamic": "2.4.8"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -84,5 +84,5 @@
   },
   "scripts": {},
   "typings": "index.d.ts",
-  "version": "2.4.7"
+  "version": "2.4.8"
 }

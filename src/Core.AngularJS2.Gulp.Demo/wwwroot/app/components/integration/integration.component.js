@@ -55,8 +55,8 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                         });
                     };
                     this.getToDoList = function () {
-                        _this.dashboardService.getToDoList().subscribe(function (result) {
-                            _this.toDoList = result;
+                        _this.dashboardService.getMyRoles().subscribe(function (result) {
+                            _this.roles = result;
                         });
                     };
                 }

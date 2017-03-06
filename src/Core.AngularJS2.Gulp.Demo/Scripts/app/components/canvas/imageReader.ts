@@ -16,100 +16,108 @@
 function response(e) {
 
 }
+declare var anno: any;
 
 ImageReader.prototype = {
 
-    tiffReader: function (data, options, callback) {
+    tiffReader: function (data, options, callback, overImage) {
         if (options.controls.toolbar) {
             options.controls.image = true;
             options.controls.sound = false;
         }
         this.reader = new FileReader();
-        var that = this;
-        that.rendered = false;
-        that.tiff = null;
-        that.img = null;
-        that.data = null;
-        that.width = -1;
-        that.height = -1;
-        that.options = options;
-        that.images = [];
-        that.currentPage = -1;
-        that.isZoom = true;
-        this.refresh = function () {
-            if (that.reader.result == undefined)
-                return;
-            if (that.tiff == null) {
-                that.tiff = new Tiff({ buffer: that.reader.result });
-                that.options.controls.totalPage = that.tiff.countDirectory();
-                that.options.controls.numPage = 1;
-                that.options.info = {
-                    width: that.tiff.width(),
-                    height: that.tiff.height(),
-                    compression: that.tiff.getField(Tiff.Tag.COMPRESSION),
-                    document: that.tiff.getField(Tiff.Tag.DOCUMENTNAME),
-                    description: that.tiff.getField(Tiff.Tag.IMAGEDESCRIPTION),
-                    orientation: that.tiff.getField(Tiff.Tag.ORIENTATION),
-                    xresolution: that.tiff.getField(Tiff.Tag.XRESOLUTION),
-                    yresolution: that.tiff.getField(Tiff.Tag.YRESOLUTION)
+        var vm = this;
+        vm.rendered = false;
+        vm.tiff = null;
+        vm.img = null;
+        vm.data = null;
+        vm.width = -1;
+        vm.height = -1;
+        vm.options = options;
+        vm.images = [];
+        vm.currentPage = -1;
+        vm.isZoom = true;
 
+        if (options.controls.enableOverlay)
+            vm.images.push(overImage);
+
+        this.refresh = function () {
+            
+            if (vm.reader.result == undefined)
+                return;
+            if (vm.tiff == null) {
+                vm.tiff = new Tiff({ buffer: vm.reader.result });
+                vm.options.controls.totalPage = vm.tiff.countDirectory();
+                vm.options.controls.numPage = 1;
+                vm.options.info = {
+                    width: vm.tiff.width(),
+                    height: vm.tiff.height(),
+                    compression: vm.tiff.getField(Tiff.Tag.COMPRESSION),
+                    document: vm.tiff.getField(Tiff.Tag.DOCUMENTNAME),
+                    description: vm.tiff.getField(Tiff.Tag.IMAGEDESCRIPTION),
+                    orientation: vm.tiff.getField(Tiff.Tag.ORIENTATION),
+                    xresolution: vm.tiff.getField(Tiff.Tag.XRESOLUTION),
+                    yresolution: vm.tiff.getField(Tiff.Tag.YRESOLUTION)
                 };
             }
 
             // Limit page number if upper
-            if (that.options.controls.numPage > that.options.controls.totalPage) {
-                that.options.controls.numPage = that.options.controls.totalPage;
+            if (vm.options.controls.numPage > vm.options.controls.totalPage) {
+                vm.options.controls.numPage = vm.options.controls.totalPage;
             }
             // Set to correct page
-            if (that.options.controls.filmStrip) {
-                that.images = [];
-                for (var p = 0; p < that.tiff.countDirectory(); p++) {
-                    that.tiff.setDirectory(p);
+            if (vm.options.controls.filmStrip) {
+                vm.images = [];
+                for (var p = 0; p < vm.tiff.countDirectory(); p++) {
+                    vm.tiff.setDirectory(p);
                     // Set only first page @TODO
                     if (p == 0) {
-                        that.width = that.tiff.width();
-                        that.height = that.tiff.height();
+                        vm.width = vm.tiff.width();
+                        vm.height = vm.tiff.height();
                     }
-                    that.images[p] = new Image();
-                    that.images[p].onload = function () {
-                        if (that.images.length == 1) {
-                            that.img = that.images[0];
+                    vm.images[p] = new Image();
+                    vm.images[p].onload = function () {
+                        if (vm.images.length == 1) {
+                            vm.img = vm.images[0];
                         }
                         callback();
-                        that.rendered = true;
+                        vm.rendered = true;
                     }
-                    that.images[p].src = that.tiff.toDataURL();
-                    that.images[p].pageNum = p;
+                    vm.images[p].src = vm.tiff.toDataURL();
+                    vm.images[p].pageNum = p;
                     //that.currentPage = that.options.controls.numPage;
                 }
 
             } else {
-                if (that.currentPage != that.options.controls.numPage) {
-                    that.tiff.setDirectory(that.options.controls.numPage - 1);
-                    that.width = that.tiff.width();
-                    that.height = that.tiff.height();
-                    that.img = new Image();
-                    that.img.onload = function () {
+                if (vm.currentPage != vm.options.controls.numPage) {
+                    vm.tiff.setDirectory(vm.options.controls.numPage - 1);
+                    vm.width = vm.tiff.width();
+                    vm.height = vm.tiff.height();
+                    vm.img = new Image();
+                    vm.img.onload = function () {
                         callback();
-                        that.rendered = true;
+                        vm.rendered = true;
                     }
-                    that.img.src = that.tiff.toDataURL();
-                    options.ctx.drawImage(that.img, 0, 0);
-                    that.currentPage = that.options.controls.numPage;
+                    vm.img.src = vm.tiff.toDataURL();
+                    options.ctx.drawImage(vm.img, 0, 0);
+                    //options.ctx.drawImage(vm.img, 111, 111);
+
+                    vm.currentPage = vm.options.controls.numPage;
                 }
             }
         };
 
         this.reader.onload = function () {
-            if (that.tiff != null) {
-                that.tiff.close();
-                that.tiff = null;
+            if (vm.tiff != null) {
+                vm.tiff.close();
+                vm.tiff = null;
             }
             Tiff.initialize({ TOTAL_MEMORY: 16777216 * 5 });//100000000
-            that.refresh();
+            vm.refresh();
         };
+
         if (typeof (data) == 'string') {
-            that.img = new Image();
+            vm.img = new Image();
             if (data.indexOf('Tiff') >= 0) {
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", data);
@@ -118,57 +126,66 @@ ImageReader.prototype = {
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var tiff = new Tiff({ buffer: xhr.response });
-                        that.tiff = tiff;
-                        that.width = that.tiff.width();
-                        that.height = that.tiff.height();
-                        that.img = new Image();
-                        that.img.onload = function () {
+                        vm.tiff = tiff;
+                        vm.width = vm.tiff.width();
+                        vm.height = vm.tiff.height();
+                        vm.img = new Image();
+                        vm.img.onload = function () {
                             callback();
-                            that.rendered = true;
+                            vm.rendered = true;
                         }
-                        that.img.src = that.tiff.toDataURL();
+                        vm.img.src = vm.tiff.toDataURL();
+                        //anno.makeAnnotatable(vm.img);
 
                         //var base64 = base64ArrayBuffer(xhr.response);
                         //that.img.src = base64;
-                        options.ctx.drawImage(that.img, 0, 0);
+                        if (options.controls.enableOverlay) {
+                            let img2 = new Image();
+                            img2.src = overImage;
+
+                            options.ctx.drawImage(img2, 0,100,111,111,110,1111,111,111);
+                        }
+                        else
+                            options.ctx.drawImage(vm.img, 0, 0);
+
                     }
                 }
                 xhr.send();
             }
             else
-                that.img.src = data;
+                vm.img.src = data;
         }
         else
             this.reader.readAsArrayBuffer(data);
         return this;
     },
 
-    imageReader: function (data, options, callback) {
+    imageReader: function (data, options, callback, overImage) {
         if (options.controls.toolbar) {
             options.controls.image = true;
             options.controls.sound = false;
         }
         this.reader = new FileReader();
-        var that = this;
-        that.img = new Image();
-        that.img.onload = function () {
-            that.width = that.img.width;
-            that.height = that.img.height;
+        var vm = this;
+        vm.img = new Image();
+        vm.img.onload = function () {
+            vm.width = vm.img.width;
+            vm.height = vm.img.height;
             callback();
-            that.rendered = true;
+            vm.rendered = true;
         }
-        that.data = null;
-        that.width = -1;
-        that.height = -1;
+        vm.data = null;
+        vm.width = -1;
+        vm.height = -1;
         options.info = {};
-        that.isZoom = true;
-        that.rendered = false;
+        vm.isZoom = true;
+        vm.rendered = false;
         this.reader.onload = function () {
-            that.img.src = that.reader.result;
-            options.ctx.drawImage(that.img, 0, 0);
+            vm.img.src = vm.reader.result;
+            options.ctx.drawImage(vm.img, 0, 0);
         };
         if (typeof (data) === 'string') {
-            that.img.src = data;
+            vm.img.src = data;
         } else {
             this.reader.readAsDataURL(data);
         }
@@ -192,8 +209,8 @@ ImageReader.prototype = {
             case "image/tif":
             case "image/tiff": reader = { create: this.tiffReader }; break;
             case "image/png":
+            case "image/jpg":
             case "image/jpeg": reader = { create: this.imageReader }; break;
-
         };
         return reader;
     },

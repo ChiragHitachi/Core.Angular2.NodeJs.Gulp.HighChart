@@ -25,26 +25,28 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                 function CanvasViewerComponent(http) {
                     var _this = this;
                     this.http = http;
+                    this.lineWidth = 1;
+                    this.imageReader = new ImageReader();
                     this.curPos = { x: 0, y: 0 };
                     this.picPos = { x: 0, y: 0 };
                     this.mousePos = { x: 0, y: 0 };
                     this.onchange = function () {
-                        var imageReader = new ImageReader();
+                        _this.imageReader = new ImageReader();
                         _this.options.zoom.value = 1.0;
                         _this.options.rotate.value = 0;
                         _this.curPos = { x: 0, y: 0 };
                         _this.picPos = { x: 0, y: 0 };
-                        var canvas = _this.imageViewer.nativeElement;
-                        _this.context = canvas.getContext("2d");
+                        _this.canvas = _this.imageViewer.nativeElement;
+                        _this.context = _this.canvas.getContext("2d");
                         _this.options.ctx = _this.context;
-                        var canvasSize = canvas.parentNode;
+                        var canvasSize = _this.canvas.parentNode;
                         _this.context.canvas.width = canvasSize.clientWidth;
                         _this.context.canvas.height = canvasSize.clientHeight;
                         var resize = { height: canvasSize.clientHeight, width: canvasSize.clientWidth };
                         if (typeof (_this.imagePath) === 'object') {
                             // Object type file
-                            if (imageReader.IsSupported(_this.imagePath.type)) {
-                                _this.reader = imageReader.CreateReader(_this.imagePath.type, _this.imagePath, _this.httpRequest).create(_this.imagePath, _this.options, _this.onloadeddata);
+                            if (_this.imageReader.IsSupported(_this.imagePath.type)) {
+                                _this.reader = _this.imageReader.CreateReader(_this.imagePath.type, _this.imagePath, _this.httpRequest).create(_this.imagePath, _this.options, _this.onloadeddata);
                             }
                             else {
                                 console.log(_this.imagePath.type, ' not supported !');
@@ -56,7 +58,13 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                                 method: 'GET',
                                 responseType: 2
                             };
-                            _this.reader = imageReader.CreateReader("", _this.imagePath).create(_this.imagePath, _this.options, _this.onloadeddata); //, $q, $timeout);
+                            var overImage = "";
+                            _this.reader = _this.imageReader.CreateReader("", _this.imagePath).create(_this.imagePath, _this.options, _this.onloadeddata, overImage); //, $q, $timeout);
+                            if (_this.options.controls.enableOverlay) {
+                                overImage = "http://localhost:61662/images/test.jpg";
+                                var options2 = _this.options;
+                                var reader2 = _this.imageReader.CreateReader("", "http://localhost:61662/images/test.jpg").create("http://localhost:61662/images/test.jpg", options2, _this.onloadeddata); //, $q, $timeout);
+                            }
                         }
                         _this.applyTransform();
                     };
@@ -71,6 +79,38 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                             _this.resizeTo(_this.options.controls.fit);
                         }
                     };
+                    this.negative = function () {
+                        var destX = 0;
+                        var destY = 0;
+                        //context.drawImage(imageObj, destX, destY);
+                        var imageData = _this.context.getImageData(0, 0, _this.canvas.width, _this.canvas.height);
+                        var pixels = imageData.data;
+                        for (var i = 0; i < pixels.length; i += 4) {
+                            pixels[i] = 255 - pixels[i]; // red
+                            pixels[i + 1] = 255 - pixels[i + 1]; // green
+                            pixels[i + 2] = 255 - pixels[i + 2]; // blue
+                        }
+                        // overwrite original image
+                        _this.context.putImageData(imageData, 0, 0);
+                    };
+                    /*
+                        blur = () => {
+                            var i, x, y, passes = 8;
+                            var imageObj = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                    
+                            passes = passes || 4;
+                            this.context.globalAlpha = 0.125;
+                            // Loop for each blur pass.
+                            for (i = 1; i <= passes; i++) {
+                                for (y = -1; y < 2; y++) {
+                                    for (x = -1; x < 2; x++) {
+                                        this.context.drawImage(imageObj, x, y);
+                                    }
+                                }
+                            }
+                            this.context.globalAlpha = 1.0;
+                        }
+                    */
                     this.zoom = function (direction) {
                         var oldWidth, newWidth = 0;
                         var oldHeight, newHeight = 0;
@@ -112,6 +152,70 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                         _this.picPos.x = _this.picPos.x - (newWidth - oldWidth) / 2;
                         _this.picPos.y = _this.picPos.y - (newHeight - oldHeight) / 2;
                         _this.applyTransform();
+                    };
+                    this.getMousePosition = function (evt) {
+                        return {
+                            x: evt.pageX - this.canvas.offsetLeft,
+                            y: evt.pageY - this.canvas.offsetTop
+                        };
+                    };
+                    this.draw = function (evt) {
+                        if (!this.mouseIsDown) {
+                            this.currentX = null;
+                            this.currentY = null;
+                            this.startX = null;
+                            this.startY = null;
+                            return;
+                        }
+                        if (!this.currentX || !this.currentY) {
+                            this.currentX = this.getMousePosition(evt).x;
+                            this.currentY = this.getMousePosition(evt).y;
+                        }
+                        if (!this.startX || !this.startY) {
+                            this.startX = this.currentX;
+                            this.startY = this.currentY;
+                        }
+                        this.oldX = this.currentX;
+                        this.oldY = this.currentY;
+                        this.currentX = this.getMousePosition(evt).x;
+                        this.currentY = this.getMousePosition(evt).y;
+                        this.context.beginPath();
+                        this.context.moveTo(this.oldX, this.oldY);
+                        this.context.lineTo(this.currentX, this.currentY);
+                        this.context.strokeStyle = this.lineCol;
+                        this.context.lineJoin = 'round';
+                        this.context.lineCap = 'round';
+                        this.context.lineWidth = this.lineWidth;
+                        this.context.stroke();
+                        this.context.closePath();
+                    };
+                    this.annotate = function () {
+                        var imgHeight = 900, imgWidth = 900, // Image dimensions (don't change these)
+                        width = 900, height = 900, // Dimensions of cropped region
+                        translate0 = [-290, -180], scale0 = 1; // Initial offset & scale
+                        _this.svg = d3.select("body").append("svg")
+                            .attr("width", width + "px")
+                            .attr("height", height + "px");
+                        _this.svg.append("rect")
+                            .attr("class", "overlay")
+                            .attr("width", width + "px")
+                            .attr("height", height + "px");
+                        _this.svg = _this.svg.append("g")
+                            .attr("transform", "translate(" + translate0 + ")scale(" + scale0 + ")")
+                            .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", _this.zoomD3))
+                            .append("g");
+                        _this.svg.append("image")
+                            .attr("width", imgWidth + "px")
+                            .attr("height", imgHeight + "px")
+                            .attr("xlink:href", "http://localhost:53428/Images/test.jpg");
+                        //var scale = d3.scale.linear()
+                        //    .range([10, 390])
+                        //    .domain([1, 23]);
+                        _this.options.ctx.beginPath();
+                        _this.options.ctx.rect(1, 150, 10, 10);
+                        _this.options.ctx.fillStyle = "red";
+                        _this.options.ctx.fill();
+                        _this.options.ctx.closePath();
                     };
                     this.rotate = function (direction) {
                         // alert(this.options.zoom.value);
@@ -170,6 +274,14 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                         picPosX = centerX - (_this.reader.width * _this.options.zoom.value) / 2;
                         _this.curPos = { x: picPosX, y: 0 };
                         _this.picPos = { x: picPosX, y: 0 };
+                    };
+                    this.overLay = function () {
+                        _this.options.controls.enableOverlay = !_this.options.controls.enableOverlay;
+                        var overImage = "";
+                        if (_this.options.controls.enableOverlay)
+                            overImage = "http://localhost:53428/Images/test.jpg";
+                        _this.reader = _this.imageReader.CreateReader("", _this.imagePath).create(_this.imagePath, _this.options, _this.onloadeddata, overImage); //, $q, $timeout);
+                        _this.applyTransform();
                     };
                     this.applyTransform = function () {
                         if (_this.reader == null) {
@@ -233,6 +345,7 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                                 var offsetY = 0;
                                 for (var i = 0; i < _this.reader.data.length; i++) {
                                     var data = _this.reader.data[i];
+                                    //var imagedata: ImageData = this.context.getImageData(0, 0, 100, 100);
                                     // angular.forEach(this.reader.data, function (data) {
                                     _this.context.putImageData(data, _this.picPos.x, _this.picPos.y + offsetY);
                                     _this.context.beginPath();
@@ -267,7 +380,7 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                                 _this.context.fillStyle = item.color;
                                 _this.context.globalAlpha = 0.4;
                                 _this.context.fill();
-                                _this.context.lineWidth = 1;
+                                _this.context.lineWidth = 11;
                                 _this.context.strokeStyle = item.color;
                                 _this.context.stroke();
                                 _this.context.restore();
@@ -276,9 +389,9 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                     };
                     this.httpRequest = http;
                 }
-                //ngAfterViewInit() {
-                //    this.onchange();
-                //}
+                CanvasViewerComponent.prototype.ngAfterViewInit = function () {
+                    this.resizeTo('width');
+                };
                 CanvasViewerComponent.prototype.unloadHandler = function (event) {
                     alert('unload');
                 };
@@ -287,6 +400,33 @@ System.register(["@angular/core", "@angular/http"], function (exports_1, context
                 };
                 CanvasViewerComponent.prototype.ngOnChanges = function () {
                     this.onchange();
+                };
+                CanvasViewerComponent.prototype.zoomD3 = function () {
+                    this.svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                    console.log("translate: " + d3.event.translate + ", scale: " + d3.event.scale);
+                };
+                CanvasViewerComponent.prototype.onMouseDown = function (event) {
+                    this.mouseIsDown = true;
+                };
+                CanvasViewerComponent.prototype.onMouseUp = function (event) {
+                    this.mouseIsDown = false;
+                    this.endX = this.getMousePosition(event).x;
+                    this.endY = this.getMousePosition(event).y;
+                    this.context.beginPath();
+                    this.context.moveTo(this.startX, this.startY);
+                    this.context.strokeStyle = this.lineCol;
+                    this.context.lineJoin = 'round';
+                    this.context.lineCap = 'round';
+                    this.context.lineWidth = this.lineWidth;
+                    this.context.rect(this.startX, this.startY, this.endX - this.startX, this.endY - this.startY);
+                    this.context.stroke();
+                    this.context.closePath();
+                    var img = new Image();
+                    img.src = this.canvas.toDataURL();
+                    this.context.drawImage(img, 0, 0);
+                };
+                CanvasViewerComponent.prototype.onMouseMove = function (event) {
+                    this.draw(event);
                 };
                 return CanvasViewerComponent;
             }());

@@ -1,4 +1,4 @@
-﻿import { IResponse, IContainerScanned, IContainerStatus, IToDo } from "../../app/models/viewModels";
+﻿import { IResponse, IContainerScanned, IContainerStatus, Role } from "../../app/models/viewModels";
 import { IWebRequest, IDashboardService } from "../../app/interfaces/interfaces";
 import { Observable } from "rxjs/Observable";
 import { Http, Response, RequestOptions, Headers, Request, RequestMethod, ResponseContentType } from "@angular/http";
@@ -33,12 +33,12 @@ export class ServiceMocker {
                     return Observable.create(() => { return result })
                 },
 
-                getToDoList(): Observable<IToDo[]>  {
+                getMyRoles(): Observable<Role[]>  {
                     return Observable.create(() => { return result })
 
                 },
 
-                getToDoItem: (id: number): Observable<IToDo>  => {
+                getMyRole: (id: number): Observable<Role>  => {
                     return Observable.create(() => { return result })
                 }
             }

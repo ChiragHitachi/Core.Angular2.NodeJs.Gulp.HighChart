@@ -6,7 +6,7 @@ import { ChartModule } from 'angular2-highcharts';
 import { IDashboardService, IImageService } from "../../interfaces/interfaces";
 import { DashboardService } from "../../services/dashboardService";
 import { ImageService } from "../../services/imageService";
-import { IResponse, IContainerScanned, IContainerStatus, IToDo } from "../../models/viewModels";
+import { IResponse, IContainerScanned, IContainerStatus, Role } from "../../models/viewModels";
 
 @Component({
     selector: "charts",
@@ -20,8 +20,7 @@ export class IntegrationComponent {
     imageBase64: string;
     imageBytes: any;
     containerStatus: IContainerStatus;
-    toDoList: IToDo[];
-
+    roles: Role[];
     imageAsBytes: any;
 
     ngOnInit() {
@@ -65,8 +64,8 @@ export class IntegrationComponent {
     }
 
     getToDoList = () => {
-        this.dashboardService.getToDoList().subscribe(result => {
-            this.toDoList = result;
+        this.dashboardService.getMyRoles().subscribe(result => {
+            this.roles = result;
 
         });
 

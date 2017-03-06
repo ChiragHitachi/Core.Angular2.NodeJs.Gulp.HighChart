@@ -53,7 +53,8 @@ export interface IImageControl {
     disableRotate: boolean,
     numPage: number,
     totalPage: number,
-    filmStrip: boolean
+    filmStrip: boolean,
+    enableOverlay: boolean
 }
 
 export interface IImageOptions {
@@ -65,9 +66,33 @@ export interface IImageOptions {
     info: any
 }
 
-export interface IToDo {
-    toDoId: number,
-    toDoText: string,
-    toDoTime: Date,
-    isCompleted:boolean
+export interface Role {
+    RoleId: number,
+    roleText: string,
+    roleGivenTime: Date,
+    isValid:boolean
 }
+
+
+export interface IWidget {
+    id: number,
+    name: string,
+    type: string,
+    image: string,
+    position:number
+}
+
+export interface IWidgetPosition {
+    position: string,
+    widget: IWidget
+}
+
+export interface ILoginDetail {
+    userId: string,
+    userName: string;
+    accessToken: string;
+    expires: Date;
+    loggedinDate?: Date;
+    isLoggedIn?: boolean;
+}
+

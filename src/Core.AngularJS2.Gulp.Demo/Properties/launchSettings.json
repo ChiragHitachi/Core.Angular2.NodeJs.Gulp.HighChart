@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:61662/",
+      "applicationUrl": "http://localhost:61664/",
       "sslPort": 0
     }
   },
@@ -18,7 +18,7 @@
     "Core.AngularJS2.Gulp.Demo": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000",
+      "launchUrl": "http://localhost:6000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

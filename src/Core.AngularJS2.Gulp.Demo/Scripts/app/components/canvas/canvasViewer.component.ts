@@ -1,8 +1,10 @@
 ﻿import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Component, ViewChild, Input, HostListener } from "@angular/core";
 import { IResponse, IImageOptions } from "../../models/viewModels";
-//import 'js/tiff.js';
 import { Http, Response } from "@angular/http";
+declare var d3: any;
+//import * as d3 from "d3";
+//declare var anno: any;
 
 @Component({
     selector: "canvas-viewer",
@@ -10,8 +12,12 @@ import { Http, Response } from "@angular/http";
 })
 
 export class CanvasViewerComponent {
+    clear: any; currentX: any; currentY: any; lineCol: any; lineWidth: any = 1; mouseIsDown: any; oldX: any; oldY: any; startX: any; startY: any; endX: any; endY: any;
+    canvas: any;
     @ViewChild("imageViewer") imageViewer;
     context: CanvasRenderingContext2D;
+    imageReader = new ImageReader();
+    svg: any;
     reader: any;
     @Input() public imagePath;
     @Input() public options: IImageOptions;
@@ -21,23 +27,24 @@ export class CanvasViewerComponent {
     curPos = { x: 0, y: 0 };
     picPos = { x: 0, y: 0 };
     mousePos = { x: 0, y: 0 };
+
     onchange = () => {
-        var imageReader = new ImageReader();
+        this.imageReader = new ImageReader();
         this.options.zoom.value = 1.0;
         this.options.rotate.value = 0;
         this.curPos = { x: 0, y: 0 };
         this.picPos = { x: 0, y: 0 };
-        let canvas = this.imageViewer.nativeElement;
-        this.context = canvas.getContext("2d");
+        this.canvas = this.imageViewer.nativeElement;
+        this.context = this.canvas.getContext("2d");
         this.options.ctx = this.context;
-        var canvasSize = canvas.parentNode;
+        var canvasSize = this.canvas.parentNode;
         this.context.canvas.width = canvasSize.clientWidth;
         this.context.canvas.height = canvasSize.clientHeight;
         var resize = { height: canvasSize.clientHeight, width: canvasSize.clientWidth };
         if (typeof (this.imagePath) === 'object') {
             // Object type file
-            if (imageReader.IsSupported(this.imagePath.type)) {
-                this.reader = imageReader.CreateReader(this.imagePath.type, this.imagePath, this.httpRequest).create(this.imagePath, this.options, this.onloadeddata);
+            if (this.imageReader.IsSupported(this.imagePath.type)) {
+                this.reader = this.imageReader.CreateReader(this.imagePath.type, this.imagePath, this.httpRequest).create(this.imagePath, this.options, this.onloadeddata);
             } else {
                 console.log(this.imagePath.type, ' not supported !');
             }
@@ -47,15 +54,21 @@ export class CanvasViewerComponent {
                 method: 'GET',
                 responseType: 2
             };
-            this.reader = imageReader.CreateReader("", this.imagePath).create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
+            var overImage = "";
+            this.reader = this.imageReader.CreateReader("", this.imagePath).create(this.imagePath, this.options, this.onloadeddata, overImage);//, $q, $timeout);
+            if (this.options.controls.enableOverlay) {
+                overImage = "http://localhost:61662/images/test.jpg";
 
+                var options2 = this.options;
+                var reader2 = this.imageReader.CreateReader("", "http://localhost:61662/images/test.jpg").create("http://localhost:61662/images/test.jpg", options2, this.onloadeddata);//, $q, $timeout);
+            }
             //this.reader = imageReader.CreateReader("image/jpeg").create(this.imagePath, this.options, this.onloadeddata);//, $q, $timeout);
         }
         this.applyTransform();
     }
-    //ngAfterViewInit() {
-    //    this.onchange();
-    //}
+    ngAfterViewInit() {
+        this.resizeTo('width');
+    }
 
     @HostListener('window:unload', ['$event'])
     unloadHandler(event) {
@@ -85,6 +98,42 @@ export class CanvasViewerComponent {
         }
     }
 
+    negative = () => {
+        var destX = 0;
+        var destY = 0;
+
+        //context.drawImage(imageObj, destX, destY);
+
+        var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        var pixels = imageData.data;
+        for (var i = 0; i < pixels.length; i += 4) {
+            pixels[i] = 255 - pixels[i];   // red
+            pixels[i + 1] = 255 - pixels[i + 1]; // green
+            pixels[i + 2] = 255 - pixels[i + 2]; // blue
+            // i+3 is alpha (the fourth element)
+        }
+
+        // overwrite original image
+        this.context.putImageData(imageData, 0, 0);
+    }
+    /*
+        blur = () => {
+            var i, x, y, passes = 8;
+            var imageObj = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    
+            passes = passes || 4;
+            this.context.globalAlpha = 0.125;
+            // Loop for each blur pass.
+            for (i = 1; i <= passes; i++) {
+                for (y = -1; y < 2; y++) {
+                    for (x = -1; x < 2; x++) {
+                        this.context.drawImage(imageObj, x, y);
+                    }
+                }
+            }
+            this.context.globalAlpha = 1.0;
+        }
+    */
     zoom = (direction) => {
         var oldWidth, newWidth = 0;
         var oldHeight, newHeight = 0;
@@ -126,9 +175,85 @@ export class CanvasViewerComponent {
         this.picPos.x = this.picPos.x - (newWidth - oldWidth) / 2;
         this.picPos.y = this.picPos.y - (newHeight - oldHeight) / 2;
         this.applyTransform();
+    }
+    getMousePosition = function (evt) {
+        return {
+            x: evt.pageX - this.canvas.offsetLeft,
+            y: evt.pageY - this.canvas.offsetTop
+        };
+    };
+    draw = function (evt) {
+        if (!this.mouseIsDown) {
+            this.currentX = null;
+            this.currentY = null;
+            this.startX = null;
+            this.startY = null;
+            return;
+        }
 
+        if (!this.currentX || !this.currentY) {
+            this.currentX = this.getMousePosition(evt).x;
+            this.currentY = this.getMousePosition(evt).y;
+        }
+        if (!this.startX || !this.startY) {
+            this.startX = this.currentX;
+            this.startY = this.currentY;
+        }
+
+        this.oldX = this.currentX;
+        this.oldY = this.currentY;
+        this.currentX = this.getMousePosition(evt).x;
+        this.currentY = this.getMousePosition(evt).y;
+        this.context.beginPath();
+        this.context.moveTo(this.oldX, this.oldY);
+        this.context.lineTo(this.currentX, this.currentY);
+        this.context.strokeStyle = this.lineCol;
+        this.context.lineJoin = 'round';
+        this.context.lineCap = 'round';
+        this.context.lineWidth = this.lineWidth;
+        this.context.stroke();
+        this.context.closePath();
+    };
+    zoomD3() {
+        this.svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        console.log("translate: " + d3.event.translate + ", scale: " + d3.event.scale);
     }
 
+    annotate = () => {
+
+        var imgHeight = 900, imgWidth = 900,      // Image dimensions (don't change these)
+            width = 900, height = 900,             // Dimensions of cropped region
+            translate0 = [-290, -180], scale0 = 1;  // Initial offset & scale
+
+        this.svg = d3.select("body").append("svg")
+            .attr("width", width + "px")
+            .attr("height", height + "px");
+
+        this.svg.append("rect")
+            .attr("class", "overlay")
+            .attr("width", width + "px")
+            .attr("height", height + "px");
+
+        this.svg = this.svg.append("g")
+            .attr("transform", "translate(" + translate0 + ")scale(" + scale0 + ")")
+            .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", this.zoomD3))
+            .append("g");
+
+        this.svg.append("image")
+            .attr("width", imgWidth + "px")
+            .attr("height", imgHeight + "px")
+            .attr("xlink:href", "http://localhost:53428/Images/test.jpg");
+
+        //var scale = d3.scale.linear()
+        //    .range([10, 390])
+        //    .domain([1, 23]);
+
+        this.options.ctx.beginPath();
+        this.options.ctx.rect(1, 150, 10, 10);
+        this.options.ctx.fillStyle = "red";
+        this.options.ctx.fill();
+        this.options.ctx.closePath();
+    }
     rotate = (direction) => {
         // alert(this.options.zoom.value);
 
@@ -186,6 +311,16 @@ export class CanvasViewerComponent {
         this.picPos = { x: picPosX, y: 0 };
     }
 
+    overLay = () => {
+
+        this.options.controls.enableOverlay = !this.options.controls.enableOverlay;
+        var overImage = "";
+        if (this.options.controls.enableOverlay)
+            overImage = "http://localhost:53428/Images/test.jpg";
+        this.reader = this.imageReader.CreateReader("", this.imagePath).create(this.imagePath, this.options, this.onloadeddata, overImage);//, $q, $timeout);
+
+        this.applyTransform();
+    }
 
     applyTransform = () => {
         if (this.reader == null) {
@@ -248,6 +383,7 @@ export class CanvasViewerComponent {
                 var offsetY = 0;
                 for (var i = 0; i < this.reader.data.length; i++) {
                     var data = this.reader.data[i];
+                    //var imagedata: ImageData = this.context.getImageData(0, 0, 100, 100);
                     // angular.forEach(this.reader.data, function (data) {
                     this.context.putImageData(data, this.picPos.x, this.picPos.y + offsetY);
                     this.context.beginPath();
@@ -283,7 +419,7 @@ export class CanvasViewerComponent {
                 this.context.fillStyle = item.color;
                 this.context.globalAlpha = 0.4;
                 this.context.fill();
-                this.context.lineWidth = 1;
+                this.context.lineWidth = 11;
                 this.context.strokeStyle = item.color;
                 this.context.stroke();
                 this.context.restore();
@@ -291,4 +427,32 @@ export class CanvasViewerComponent {
         }
     }
 
+    public onMouseDown(event: MouseEvent): void {
+        this.mouseIsDown = true;
+    }
+
+    public onMouseUp(event: MouseEvent): void {
+        this.mouseIsDown = false;
+        this.endX = this.getMousePosition(event).x;
+        this.endY = this.getMousePosition(event).y;
+        this.context.beginPath();
+        this.context.moveTo(this.startX, this.startY);
+        this.context.strokeStyle = this.lineCol;
+        this.context.lineJoin = 'round';
+        this.context.lineCap = 'round';
+        this.context.lineWidth = this.lineWidth;
+        this.context.rect(this.startX, this.startY, this.endX - this.startX, this.endY - this.startY);
+
+        this.context.stroke();
+        this.context.closePath();
+        let img = new Image();
+
+        img.src = this.canvas.toDataURL();
+        this.context.drawImage(img, 0, 0);
+    }
+
+    public onMouseMove(event: MouseEvent): void {
+        this.draw(event);
+
+    }
 }

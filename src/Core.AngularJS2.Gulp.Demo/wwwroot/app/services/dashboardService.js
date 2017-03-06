@@ -26,13 +26,13 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     this.webRequest = webRequest;
                     var vm = this;
                     vm.getContainerScanStatus = function () {
-                        return webRequest.get("http://localhost:53919/api/ContainerStatus");
+                        return webRequest.get("http://localhost:53920/api/ContainerStatus");
                     };
-                    vm.getToDoList = function () {
-                        return webRequest.get("http://localhost:53919/api/ToDoList");
+                    vm.getMyRoles = function () {
+                        return webRequest.get("http://localhost:53920/api/Role");
                     };
-                    vm.getToDoItem = function (id) {
-                        return webRequest.get("http://localhost:53919/api/ToDoList", null, id);
+                    vm.getMyRole = function (id) {
+                        return webRequest.get("http://localhost:53920/api/Role", { id: id });
                     };
                 }
                 return DashboardService;

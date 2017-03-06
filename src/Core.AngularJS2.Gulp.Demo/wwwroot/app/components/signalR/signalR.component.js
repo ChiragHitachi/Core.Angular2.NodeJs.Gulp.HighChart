@@ -20,11 +20,129 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         execute: function () {
             SignalRComponent = (function () {
                 function SignalRComponent() {
+                    var _this = this;
+                    this.overlays = [];
+                    this.udpatePosition = function (widget, position) {
+                        _this.widgetPosition.forEach(function (item) {
+                            if (item.position === position)
+                                item.widget = widget;
+                        });
+                        _this.removeItem(widget, _this.widgets);
+                        switch (position) {
+                            case '1':
+                                _this.template1 = _this.getTemplate(widget.name);
+                                break;
+                            case '2':
+                                _this.template2 = _this.getTemplate(widget.name);
+                                break;
+                            case '3':
+                                _this.template3 = _this.getTemplate(widget.name);
+                                break;
+                        }
+                    };
+                    this.removeItem = function (item, list) {
+                        var index = list.map(function (e) {
+                            return e.name;
+                        }).indexOf(item.name);
+                        list.splice(index, 1);
+                    };
+                    this.getTemplate = function (name) {
+                        switch (name) {
+                            case 'imageTemplate':
+                                return _this.imageTemplate;
+                            case 'mapTemplate':
+                                return _this.mapTemplate;
+                            case 'stockTemplate':
+                                return _this.stockTemplate;
+                        }
+                    };
+                    this.positionTemplates = function () {
+                        _this.widgets.forEach(function (item) {
+                            if (item.position == 1)
+                                _this.template1 = _this.getTemplate(item.name);
+                            else if (item.position == 2)
+                                _this.template2 = _this.getTemplate(item.name);
+                            else if (item.position == 3)
+                                _this.template3 = _this.getTemplate(item.name);
+                        });
+                    };
                     var vm = this;
-                    vm.title = "To Do";
+                    vm.title = "My Dashboard";
+                    vm.widgets = [
+                        { id: 1, image: "", name: "imageTemplate", type: "Image", position: 0 },
+                        { id: 2, image: "", name: "mapTemplate", type: "Chart", position: 0 },
+                        { id: 3, image: "", name: "stockTemplate", type: "Chart", position: 0 }
+                    ];
+                    vm.widgetPosition = [
+                        { position: '1', widget: null },
+                        { position: '2', widget: null },
+                        { position: '3', widget: null },
+                    ];
+                    vm.imagePath = "http://localhost:53428/Images/Container.Tiff";
+                    //this.imagePath = "http://localhost:61662/images/test.jpg";
+                    vm.overlays = [{ x: 50, y: 155, w: 106, h: 29, color: '#00FF00' }];
+                    vm.options = {
+                        ctx: null,
+                        adsrc: null,
+                        zoom: {
+                            value: 1.0,
+                            step: 0.1,
+                            min: 0.05,
+                            max: 6
+                        },
+                        rotate: {
+                            value: 0,
+                            step: 90
+                        },
+                        controls: {
+                            toolbar: true,
+                            image: true,
+                            sound: false,
+                            fit: 'page',
+                            disableZoom: false,
+                            disableMove: false,
+                            disableRotate: false,
+                            numPage: 1,
+                            totalPage: 1,
+                            filmStrip: false,
+                            enableOverlay: false
+                        },
+                        info: {}
+                    };
                 }
+                SignalRComponent.prototype.onDropFirst = function (e) {
+                    var index = this.widgets.indexOf(e.dragData);
+                    if (index >= 0)
+                        this.udpatePosition(this.widgets[index], '1');
+                };
+                SignalRComponent.prototype.onDropSecond = function (e) {
+                    var index = this.widgets.indexOf(e.dragData);
+                    if (index >= 0)
+                        this.udpatePosition(this.widgets[index], '2');
+                };
+                SignalRComponent.prototype.onDropThird = function (e) {
+                    var index = this.widgets.indexOf(e.dragData);
+                    if (index >= 0)
+                        this.udpatePosition(this.widgets[index], '3');
+                };
                 return SignalRComponent;
             }());
+            __decorate([
+                core_1.ViewChild("mapTemplate"),
+                __metadata("design:type", core_1.TemplateRef)
+            ], SignalRComponent.prototype, "mapTemplate", void 0);
+            __decorate([
+                core_1.ViewChild("imageTemplate"),
+                __metadata("design:type", core_1.TemplateRef)
+            ], SignalRComponent.prototype, "imageTemplate", void 0);
+            __decorate([
+                core_1.ViewChild("stockTemplate"),
+                __metadata("design:type", core_1.TemplateRef)
+            ], SignalRComponent.prototype, "stockTemplate", void 0);
+            __decorate([
+                core_1.ViewChild("imageTemplateViewer"),
+                __metadata("design:type", Object)
+            ], SignalRComponent.prototype, "imageTemplateViewer", void 0);
             SignalRComponent = __decorate([
                 core_1.Component({
                     selector: "signalR",

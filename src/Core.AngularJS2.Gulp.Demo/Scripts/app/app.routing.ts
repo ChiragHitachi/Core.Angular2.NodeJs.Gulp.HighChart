@@ -7,17 +7,26 @@ import {ChartComponent} from "./components/charts/chart.component";
 import { IntegrationComponent } from "./components/integration/integration.component";
 import { RedisCacheComponent } from "./components/redisCache/redisCache.component";
 import { SignalRComponent } from "./components/signalR/signalR.component";
+import { DynamicComponent } from "./components/dynamic/dynamic.component";
+import { LoginComponent } from "./components/login/login.component";
+import { LandingComponent } from "./components/landing/landing.component";
 
 //import { LoungeDetailComponent } from "./components/lounge/lounge-detail.component";
-
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/login',
         pathMatch: 'full'
     },
-  
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'landing',
+        component: LandingComponent
+    },
     {
         path: 'home',
         component: HomeComponent
@@ -36,6 +45,10 @@ const routes: Routes = [
     }, {
         path: 'signalR',
         component: SignalRComponent
+    },
+    {
+        path: 'dynamic',
+        component: DynamicComponent
     },
     //{
     //    path: 'lounge/:id',

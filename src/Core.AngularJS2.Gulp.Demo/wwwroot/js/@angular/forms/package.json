@@ -2,49 +2,49 @@
   "_args": [
     [
       {
-        "raw": "@angular/forms@^2.3.0",
+        "raw": "@angular/forms@2.4.8",
         "scope": "@angular",
         "escapedName": "@angular%2fforms",
         "name": "@angular/forms",
-        "rawSpec": "^2.3.0",
-        "spec": ">=2.3.0 <3.0.0",
-        "type": "range"
+        "rawSpec": "2.4.8",
+        "spec": "2.4.8",
+        "type": "version"
       },
-      "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
+      "C:\\Users\\CGupta\\Source\\Repos\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo"
     ]
   ],
-  "_from": "@angular/forms@>=2.3.0 <3.0.0",
-  "_id": "@angular/forms@2.4.7",
+  "_from": "@angular/forms@2.4.8",
+  "_id": "@angular/forms@2.4.8",
   "_inCache": true,
   "_location": "/@angular/forms",
-  "_nodeVersion": "6.9.1",
+  "_nodeVersion": "6.9.5",
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/forms-2.4.7.tgz_1486615226012_0.45769946998916566"
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/forms-2.4.8.tgz_1487455862180_0.05504663893952966"
   },
   "_npmUser": {
     "name": "angular",
     "email": "angular-core+npm@google.com"
   },
-  "_npmVersion": "3.10.8",
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "@angular/forms@^2.3.0",
+    "raw": "@angular/forms@2.4.8",
     "scope": "@angular",
     "escapedName": "@angular%2fforms",
     "name": "@angular/forms",
-    "rawSpec": "^2.3.0",
-    "spec": ">=2.3.0 <3.0.0",
-    "type": "range"
+    "rawSpec": "2.4.8",
+    "spec": "2.4.8",
+    "type": "version"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@angular/forms/-/forms-2.4.7.tgz",
-  "_shasum": "d34a36110e10f641aa1e1420b5c2df65987fd8bb",
+  "_resolved": "https://registry.npmjs.org/@angular/forms/-/forms-2.4.8.tgz",
+  "_shasum": "51512a801aaf3a1eba7bce2b22694537b93f047f",
   "_shrinkwrap": null,
-  "_spec": "@angular/forms@^2.3.0",
-  "_where": "D:\\Chirag\\SP3 - Smith Detection\\Code\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
+  "_spec": "@angular/forms@2.4.8",
+  "_where": "C:\\Users\\CGupta\\Source\\Repos\\smiths-sp3-pocs\\Angular2 POCs\\Core.AngularJS2.Gulp.Demo\\src\\Core.AngularJS2.Gulp.Demo",
   "author": {
     "name": "angular"
   },
@@ -56,8 +56,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "d34a36110e10f641aa1e1420b5c2df65987fd8bb",
-    "tarball": "https://registry.npmjs.org/@angular/forms/-/forms-2.4.7.tgz"
+    "shasum": "51512a801aaf3a1eba7bce2b22694537b93f047f",
+    "tarball": "https://registry.npmjs.org/@angular/forms/-/forms-2.4.8.tgz"
   },
   "homepage": "https://github.com/angular/angular#readme",
   "license": "MIT",
@@ -72,8 +72,8 @@
   "name": "@angular/forms",
   "optionalDependencies": {},
   "peerDependencies": {
-    "@angular/core": "2.4.7",
-    "@angular/common": "2.4.7"
+    "@angular/core": "2.4.8",
+    "@angular/common": "2.4.8"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -82,5 +82,5 @@
   },
   "scripts": {},
   "typings": "index.d.ts",
-  "version": "2.4.7"
+  "version": "2.4.8"
 }

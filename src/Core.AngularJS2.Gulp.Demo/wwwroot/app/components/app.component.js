@@ -1,4 +1,4 @@
-System.register(["@angular/core"], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/router"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9,19 +9,39 @@ System.register(["@angular/core"], function (exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
+    var __param = (this && this.__param) || function (paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    };
     var __moduleName = context_1 && context_1.id;
-    var core_1, AppComponent;
+    var core_1, router_1, AppComponent;
     return {
         setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }
         ],
         execute: function () {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(loginService, router) {
+                    this.loginService = loginService;
+                    this.router = router;
                     this.title = "Angular 2 Demo Application";
+                    var vm = this;
+                    //if (vm.isLoggedin)
+                    //    this.router.navigateByUrl('/landing');
+                    //else
+                    //    this.router.navigateByUrl('/login');
                 }
+                Object.defineProperty(AppComponent.prototype, "IsLoggedIn", {
+                    get: function () {
+                        return this.loginService.LoginDetail.isLoggedIn;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 return AppComponent;
             }());
             AppComponent = __decorate([
@@ -29,7 +49,8 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     selector: "angularjs2demo",
                     templateUrl: '/view/components/app.component.html',
                 }),
-                __metadata("design:paramtypes", [])
+                __param(0, core_1.Inject('ILoginService')),
+                __metadata("design:paramtypes", [Object, router_1.Router])
             ], AppComponent);
             exports_1("AppComponent", AppComponent);
         }

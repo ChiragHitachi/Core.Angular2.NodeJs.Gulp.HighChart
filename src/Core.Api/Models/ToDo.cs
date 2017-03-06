@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace Core.Api.Models
 {
-    public class ToDo
+    public class Role
     {
-        public int ToDoId { get; set; }
-        public string ToDoText { get; set; }
+        public int RoleId { get; set; }
+        public string RoleText { get; set; }
 
-        public DateTime ToDoTime { get; set; }
+        public DateTime RoleGivenTime { get; set; }
 
-        public bool IsCompleted { get; set; }
+        public bool IsValid { get; set; }
         
     }
 }

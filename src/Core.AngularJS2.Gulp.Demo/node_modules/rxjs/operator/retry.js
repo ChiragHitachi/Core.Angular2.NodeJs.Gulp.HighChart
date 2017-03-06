@@ -58,7 +58,10 @@ var RetrySubscriber = (function (_super) {
             else if (count > -1) {
                 this.count = count - 1;
             }
-            source.subscribe(this._unsubscribeAndRecycle());
+            this.unsubscribe();
+            this.isStopped = false;
+            this.closed = false;
+            source.subscribe(this);
         }
     };
     return RetrySubscriber;

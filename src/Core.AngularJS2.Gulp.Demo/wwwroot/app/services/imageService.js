@@ -26,13 +26,13 @@ System.register(["@angular/core"], function (exports_1, context_1) {
                     this.webRequest = webRequest;
                     var vm = this;
                     vm.getImagePath = function () {
-                        return webRequest.get("http://localhost:53919/api/Image");
+                        return webRequest.get("http://localhost:53920/api/Image");
                     };
                     vm.getImageAsBase64 = function () {
-                        return webRequest.get("http://localhost:53919/api/ImageBase64");
+                        return webRequest.get("http://localhost:53920/api/ImageBase64");
                     };
                     vm.getImageAsByteArrray = function () {
-                        return webRequest.getImage("http://localhost:53919/api/ImageByte");
+                        return webRequest.getImage("http://localhost:53920/api/ImageByte");
                     };
                 }
                 return ImageService;

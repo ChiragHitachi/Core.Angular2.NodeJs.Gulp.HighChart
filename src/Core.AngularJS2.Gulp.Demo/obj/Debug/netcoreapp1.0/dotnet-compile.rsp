@@ -1,5 +1,5 @@
---temp-output:D:\Chirag\SP3 - Smith Detection\Code\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\
---out:D:\Chirag\SP3 - Smith Detection\Code\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\bin\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demo.dll
+--temp-output:C:\Users\CGupta\Source\Repos\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\
+--out:C:\Users\CGupta\Source\Repos\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\bin\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demo.dll
 --define:DEBUG
 --define:TRACE
 --define:NETCOREAPP1_0
@@ -176,6 +176,6 @@
 --reference:C:\Users\CGupta\.nuget\packages\System.Threading.Timer\4.0.1\ref\netstandard1.2\System.Threading.Timer.dll
 --reference:C:\Users\CGupta\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll
 --reference:C:\Users\CGupta\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll
---resource:"D:\Chirag\SP3 - Smith Detection\Code\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demodotnet-compile.deps.json",Core.AngularJS2.Gulp.Demo.deps.json
-D:\Chirag\SP3 - Smith Detection\Code\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Program.cs
-D:\Chirag\SP3 - Smith Detection\Code\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Startup.cs
+--resource:"C:\Users\CGupta\Source\Repos\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\obj\Debug\netcoreapp1.0\Core.AngularJS2.Gulp.Demodotnet-compile.deps.json",Core.AngularJS2.Gulp.Demo.deps.json
+C:\Users\CGupta\Source\Repos\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Program.cs
+C:\Users\CGupta\Source\Repos\smiths-sp3-pocs\Angular2 POCs\Core.AngularJS2.Gulp.Demo\src\Core.AngularJS2.Gulp.Demo\Startup.cs

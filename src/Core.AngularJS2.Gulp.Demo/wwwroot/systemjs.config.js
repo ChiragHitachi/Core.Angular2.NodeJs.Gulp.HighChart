@@ -2,7 +2,8 @@
     System.config({
         paths: {
             // paths serve as alias
-            'npm:': 'js/'
+            'npm:': 'js/',
+            //'ng2-drag-drop': '/node_modules/ng2-drag-drop/index.js',
         },
         // map tells the System loader where to look for things
         map: {
@@ -32,9 +33,14 @@
             // other libraries
             'rxjs': 'npm:rxjs',
             'tiff': 'npm:tiff',
-            'raphael' : 'npm:raphael',
+            'raphael': 'npm:raphael',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
+            'moment': 'js/moment.js',
+            'd3':'js/build/d3.js',
+            //'ng2-dragula': '/js/ng2-dragula.js', //'https://cdnjs.cloudflare.com/ajax/libs/dragula/1.3.0/dragula.min.js'
+            'ng2-drag-drop': 'src/ng2-drag-drop.module.js',
             //'angular2-highcharts': 'npm:angular2-highcharts',
+            //'ng2-drag-drop': '/node_modules/ng2-drag-drop/index.js',// /src/ng2-drag-drop.module.js',
             'angular2-highcharts': 'https://cdn.rawgit.com/gevgeny/angular2-highcharts/v0.3.0/dist',
             'highcharts/highstock.src': 'https://cdn.rawgit.com/highcharts/highcharts-dist/v4.2.1/highstock.js'
         },
@@ -53,13 +59,26 @@
             raphael: {
                 defaultExtension: 'js'
             },
+            //'ng2-dragula': {
+            //    format: 'register',
+            //    defaultExtension: 'js'
+            //},
             'angular2-in-memory-web-api': {
                 defaultExtension: 'js'
             },
             'angular2-highcharts': {
                 main: './index.js',
                 defaultExtension: 'js'
-            }
+            },
+            'moment': {
+                defaultExtension: 'js'
+            },
+            'd3': {
+                defaultExtension: 'js'
+            },
+            'ng2-drag-drop': {
+                defaultExtension: 'js'
+            },
         }
     });
 })(this);

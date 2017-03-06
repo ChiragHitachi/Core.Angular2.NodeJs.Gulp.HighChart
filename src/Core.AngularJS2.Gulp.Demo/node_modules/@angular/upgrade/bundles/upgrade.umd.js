@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.4.7
+ * @license Angular v2.4.8
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -113,16 +113,14 @@
                 var /** @type {?} */ input = inputs[i];
                 var /** @type {?} */ expr = null;
                 if (attrs.hasOwnProperty(input.attr)) {
-                    var /** @type {?} */ observeFn = (function (prop /** TODO #9100 */) {
+                    var /** @type {?} */ observeFn = (function (prop) {
                         var /** @type {?} */ prevValue = INITIAL_VALUE;
-                        return function (value /** TODO #9100 */) {
-                            if (_this.inputChanges !== null) {
-                                _this.inputChangeCount++;
-                                _this.inputChanges[prop] =
-                                    new Ng1Change(value, prevValue === INITIAL_VALUE ? value : prevValue);
-                                prevValue = value;
+                        return function (currValue) {
+                            if (prevValue === INITIAL_VALUE) {
+                                prevValue = currValue;
                             }
-                            _this.component[prop] = value;
+                            _this.updateInput(prop, prevValue, currValue);
+                            prevValue = currValue;
                         };
                     })(input.prop);
                     attrs.$observe(input.attr, observeFn);
@@ -140,15 +138,9 @@
                     expr = ((attrs) /** TODO #9100 */)[input.bracketParenAttr];
                 }
                 if (expr != null) {
-                    var /** @type {?} */ watchFn = (function (prop /** TODO #9100 */) {
-                        return function (value /** TODO #9100 */, prevValue /** TODO #9100 */) {
-                            if (_this.inputChanges != null) {
-                                _this.inputChangeCount++;
-                                _this.inputChanges[prop] = new Ng1Change(prevValue, value);
-                            }
-                            _this.component[prop] = value;
-                        };
-                    })(input.prop);
+                    var /** @type {?} */ watchFn = (function (prop) { return function (currValue, prevValue) {
+                        return _this.updateInput(prop, prevValue, currValue);
+                    }; })(input.prop);
                     this.componentScope.$watch(expr, watchFn);
                 }
             }
@@ -224,6 +216,19 @@
                 _this.componentScope.$destroy();
                 _this.componentRef.destroy();
             });
+        };
+        /**
+         * @param {?} prop
+         * @param {?} prevValue
+         * @param {?} currValue
+         * @return {?}
+         */
+        DowngradeNg2ComponentAdapter.prototype.updateInput = function (prop, prevValue, currValue) {
+            if (this.inputChanges) {
+                this.inputChangeCount++;
+                this.inputChanges[prop] = new Ng1Change(prevValue, currValue);
+            }
+            this.component[prop] = currValue;
         };
         return DowngradeNg2ComponentAdapter;
     }());
@@ -1377,62 +1382,58 @@
                 restrict: 'E',
                 terminal: true,
                 require: REQUIRE_INJECTOR,
-                compile: function (templateElement, templateAttributes, transclude) {
+                link: function (scope, element, attrs, parentInjector) {
                     // We might have compile the contents lazily, because this might have been triggered by the
                     // UpgradeNg1ComponentAdapterBuilder, when the ng2 templates have not been compiled yet
-                    return {
-                        post: function (scope, element, attrs, parentInjector, transclude) {
-                            var /** @type {?} */ id = idPrefix + (idCount++);
-                            ((element[0])).id = id;
-                            var /** @type {?} */ injectorPromise = new ParentInjectorPromise(element);
-                            var /** @type {?} */ ng2Compiler = (ng1Injector.get(NG2_COMPILER));
-                            var /** @type {?} */ ngContentSelectors = ng2Compiler.getNgContentSelectors(info.type);
-                            var /** @type {?} */ linkFns = compileProjectedNodes(templateElement, ngContentSelectors);
-                            var /** @type {?} */ componentFactory = componentFactoryRefMap[info.selector];
-                            if (!componentFactory)
-                                throw new Error('Expecting ComponentFactory for: ' + info.selector);
-                            element.empty();
-                            var /** @type {?} */ projectableNodes = linkFns.map(function (link) {
-                                var /** @type {?} */ projectedClone;
-                                link(scope, function (clone) {
-                                    projectedClone = clone;
-                                    element.append(clone);
-                                });
-                                return projectedClone;
-                            });
-                            parentInjector = parentInjector || ng1Injector.get(NG2_INJECTOR);
-                            if (parentInjector instanceof ParentInjectorPromise) {
-                                parentInjector.then(function (resolvedInjector) { return downgrade(resolvedInjector); });
-                            }
-                            else {
-                                downgrade(parentInjector);
-                            }
-                            /**
-                             * @param {?} injector
-                             * @return {?}
-                             */
-                            function downgrade(injector) {
-                                var /** @type {?} */ facade = new DowngradeNg2ComponentAdapter(info, element, attrs, scope, injector, parse, componentFactory);
-                                facade.setupInputs();
-                                facade.bootstrapNg2(projectableNodes);
-                                facade.setupOutputs();
-                                facade.registerCleanup();
-                                injectorPromise.resolve(facade.componentRef.injector);
-                            }
-                        }
-                    };
+                    var /** @type {?} */ id = idPrefix + (idCount++);
+                    ((element[0])).id = id;
+                    var /** @type {?} */ injectorPromise = new ParentInjectorPromise(element);
+                    var /** @type {?} */ ng2Compiler = (ng1Injector.get(NG2_COMPILER));
+                    var /** @type {?} */ ngContentSelectors = ng2Compiler.getNgContentSelectors(info.type);
+                    var /** @type {?} */ linkFns = compileProjectedNodes(element, ngContentSelectors);
+                    var /** @type {?} */ componentFactory = componentFactoryRefMap[info.selector];
+                    if (!componentFactory)
+                        throw new Error('Expecting ComponentFactory for: ' + info.selector);
+                    element.empty();
+                    var /** @type {?} */ projectableNodes = linkFns.map(function (link) {
+                        var /** @type {?} */ projectedClone;
+                        link(scope, function (clone) {
+                            projectedClone = clone;
+                            element.append(clone);
+                        });
+                        return projectedClone;
+                    });
+                    parentInjector = parentInjector || ng1Injector.get(NG2_INJECTOR);
+                    if (parentInjector instanceof ParentInjectorPromise) {
+                        parentInjector.then(function (resolvedInjector) { return downgrade(resolvedInjector); });
+                    }
+                    else {
+                        downgrade(parentInjector);
+                    }
+                    /**
+                     * @param {?} injector
+                     * @return {?}
+                     */
+                    function downgrade(injector) {
+                        var /** @type {?} */ facade = new DowngradeNg2ComponentAdapter(info, element, attrs, scope, injector, parse, componentFactory);
+                        facade.setupInputs();
+                        facade.bootstrapNg2(projectableNodes);
+                        facade.setupOutputs();
+                        facade.registerCleanup();
+                        injectorPromise.resolve(facade.componentRef.injector);
+                    }
                 }
             };
             /**
-             * @param {?} templateElement
+             * @param {?} element
              * @param {?} ngContentSelectors
              * @return {?}
              */
-            function compileProjectedNodes(templateElement, ngContentSelectors) {
+            function compileProjectedNodes(element, ngContentSelectors) {
                 if (!ngContentSelectors)
                     throw new Error('Expecting ngContentSelectors for: ' + info.selector);
                 // We have to sort the projected content before we compile it, hence the terminal: true
-                var /** @type {?} */ projectableTemplateNodes = sortProjectableNodes(ngContentSelectors, templateElement.contents());
+                var /** @type {?} */ projectableTemplateNodes = sortProjectableNodes(ngContentSelectors, element.contents());
                 return projectableTemplateNodes.map(function (nodes) { return ng1Compile(nodes); });
             }
         }
@@ -1524,7 +1525,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.7');
+    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.8');
 
     exports.UpgradeAdapter = UpgradeAdapter;
     exports.UpgradeAdapterRef = UpgradeAdapterRef;

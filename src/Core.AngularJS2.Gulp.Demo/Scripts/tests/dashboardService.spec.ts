@@ -1,6 +1,6 @@
 ﻿import { IDashboardService, IImageService } from "../app/interfaces/interfaces";
 import { DashboardService } from "../app/services/dashboardService";
-import { IResponse, IContainerScanned, IContainerStatus, IToDo } from "../app/models/viewModels";
+import { IResponse, IContainerScanned, IContainerStatus, Role } from "../app/models/viewModels";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ServiceMocker } from "../tests/mocks/serviceMocker";
 import { responseStatus } from "../app/models/enums";

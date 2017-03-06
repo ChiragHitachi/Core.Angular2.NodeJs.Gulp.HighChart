@@ -10,12 +10,10 @@ namespace Core.AngularJS2.Gulp.Demo.Helper
 {
     public static class ImageHandler
     {
-        public static IList<ToDo> _toDoList = new List<ToDo>() {
-            new ToDo() { ToDoId = 1, IsCompleted = false, ToDoText = "Buy Milk", ToDoTime = DateTime.Now },
-            new ToDo() { ToDoId = 2, IsCompleted = false, ToDoText = "Buy Vegetables", ToDoTime = DateTime.Now.AddDays(1) },
-            new ToDo() { ToDoId = 3, IsCompleted = false, ToDoText = "Pay Elec Bill", ToDoTime = DateTime.Now.AddDays(10) },
-            new ToDo() { ToDoId = 4, IsCompleted = false, ToDoText = "Pay House Rent", ToDoTime = DateTime.Now.AddDays(20) },
-
+        public static IList<Role> _roles = new List<Role>() {
+            new Role() { RoleId = 1, IsValid = false, RoleText = "Image Analyzer", RoleGivenTime = DateTime.Now },
+            new Role() { RoleId = 2, IsValid = false, RoleText = "Inspector", RoleGivenTime = DateTime.Now.AddDays(1) },
+            new Role() { RoleId = 3, IsValid = false, RoleText = "Supervisor", RoleGivenTime = DateTime.Now.AddDays(10) }
         };
         public static Byte[] ImageAsByteArray(string imagePath)
         {
@@ -42,9 +40,9 @@ namespace Core.AngularJS2.Gulp.Demo.Helper
             };
         }
 
-        public static IList<ToDo> GetToDoItems()
+        public static IList<Role> GetMyRoles()
         {
-            return _toDoList;
+            return _roles;
         }
     }
 }

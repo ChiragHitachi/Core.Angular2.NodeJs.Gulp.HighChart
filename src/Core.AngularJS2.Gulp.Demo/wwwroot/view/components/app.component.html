@@ -1,1 +1,5 @@
-<h1>{{title}}</h1><br><div class="menu"><div class="row"><div class="col-lg-2"><a class="home" [routerLink]="['/home']">Home</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/charts']">Charts</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/integration']">API Integration</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/signalR']">Signal R</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/redisCache']">Redis Cache</a></div></div></div><router-outlet></router-outlet>
+<h1>{{title}}</h1><br><!--<div ng-hide="isLoggedin">
+    <login></login>
+</div>--><!--<div ng-show="isLoggedin">
+    <landing></landing>
+</div>--><div class="menu" *ngIf="IsLoggedIn"><div class="row"><div class="col-lg-2"><a class="home" [routerLink]="['/home']">Home</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/charts']">Charts</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/integration']">API Integration</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/signalR']">Signal R</a></div><div class="col-lg-2"><a class="chart" [routerLink]="['/redisCache']">Redis Cache</a></div><div class="col-lg-1"><a class="chart" [routerLink]="['/dynamic']">Dynamic</a></div></div></div><router-outlet></router-outlet>

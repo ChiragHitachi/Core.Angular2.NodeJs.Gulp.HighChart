@@ -17,15 +17,15 @@ export class ImageService implements IImageService {
         var vm = this;
 
         vm.getImagePath = () => {
-            return webRequest.get<IContainerDetail>("http://localhost:53919/api/Image");
+            return webRequest.get<IContainerDetail>("http://localhost:53920/api/Image");
         }
 
         vm.getImageAsBase64 = () => {
-            return webRequest.get<IContainerDetail>("http://localhost:53919/api/ImageBase64");
+            return webRequest.get<IContainerDetail>("http://localhost:53920/api/ImageBase64");
         }
 
         vm.getImageAsByteArrray = () => {
-            return webRequest.getImage<any>("http://localhost:53919/api/ImageByte");
+            return webRequest.getImage<any>("http://localhost:53920/api/ImageByte");
         }
     }
 }

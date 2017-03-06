@@ -1,11 +1,10 @@
 import { Observable } from '../Observable';
-import { IScheduler } from '../Scheduler';
+import { Scheduler } from '../Scheduler';
 import { Operator } from '../Operator';
 import { PartialObserver } from '../Observer';
 import { Subscriber } from '../Subscriber';
 import { Notification } from '../Notification';
 import { TeardownLogic } from '../Subscription';
-import { Action } from '../scheduler/Action';
 
 /**
  * @see {@link Notification}
@@ -16,12 +15,12 @@ import { Action } from '../scheduler/Action';
  * @method observeOn
  * @owner Observable
  */
-export function observeOn<T>(this: Observable<T>, scheduler: IScheduler, delay: number = 0): Observable<T> {
+export function observeOn<T>(this: Observable<T>, scheduler: Scheduler, delay: number = 0): Observable<T> {
   return this.lift(new ObserveOnOperator(scheduler, delay));
 }
 
 export class ObserveOnOperator<T> implements Operator<T, T> {
-  constructor(private scheduler: IScheduler, private delay: number = 0) {
+  constructor(private scheduler: Scheduler, private delay: number = 0) {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
@@ -35,25 +34,22 @@ export class ObserveOnOperator<T> implements Operator<T, T> {
  * @extends {Ignored}
  */
 export class ObserveOnSubscriber<T> extends Subscriber<T> {
-  static dispatch(this: Action<ObserveOnMessage>, arg: ObserveOnMessage) {
+  static dispatch(arg: ObserveOnMessage) {
     const { notification, destination } = arg;
     notification.observe(destination);
-    this.unsubscribe();
   }
 
   constructor(destination: Subscriber<T>,
-              private scheduler: IScheduler,
+              private scheduler: Scheduler,
               private delay: number = 0) {
     super(destination);
   }
 
   private scheduleMessage(notification: Notification<any>): void {
-    this.add(this.scheduler.schedule(
-      ObserveOnSubscriber.dispatch,
-      this.delay,
-      new ObserveOnMessage(notification, this.destination)
-    ));
-  }
+     this.add(this.scheduler.schedule(ObserveOnSubscriber.dispatch,
+                                      this.delay,
+                                      new ObserveOnMessage(notification, this.destination)));
+   }
 
   protected _next(value: T): void {
     this.scheduleMessage(Notification.createNext(value));

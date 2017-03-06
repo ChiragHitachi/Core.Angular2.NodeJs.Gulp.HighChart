@@ -22,11 +22,11 @@ export class HomeComponent {
 
     constructor( @Inject('IImageService') private imageService: IImageService) {
         var vm = this;
-        vm.title = "Welcome Chirag Gupta";
+        vm.title = "Image Assessment";
         this.imagePath = "http://localhost:53428/Images/Container.Tiff";
-        //this.imagePath = "http://localhost:61662/images/test.jpg";
+        //this.imagePath = "http://localhost:53428/Images/test.jpg";
 
-        this.overlays = [{ x: 50, y: 155, w: 106, h: 29, color: '#00FF00' }];
+        this.overlays = [{ x: 150, y: 255, w: 106, h: 111, color: '#00FF00' }];
         this.options = {
             ctx: null,
             adsrc: null,
@@ -50,7 +50,8 @@ export class HomeComponent {
                 disableRotate: false,
                 numPage: 1,
                 totalPage: 1,
-                filmStrip: false
+                filmStrip: false,
+                enableOverlay:false
             },
             info: {}
         };
